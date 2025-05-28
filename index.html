@@ -1,12 +1,70 @@
 <!-- index.html 範例 -->
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hi, 我是 YourName</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hi, I'm Jim - Software Engineer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>歡迎來到我的個人網站！</h1>
-  <p>這裡放置自我介紹、作品集或部落格貼文。</p>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h1>Welcome! I'm Jim</h1>
+    <p>A passionate Software Engineer based in Taipei, Taiwan.</p>
+    <a href="#projects" class="cta-button">View My Work</a>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hello! I'm Jim. I'm a software engineer with a passion for building web applications and mobile apps.</p>
+    <p>I have experience with [Skill 1], [Skill 2], and [Skill 3]. I'm always eager to learn new things and take on new challenges.</p>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-item">
+        <h3>Project Title 1</h3>
+        <p>A brief description of Project 1. What problem does it solve? What technologies were used?</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-item">
+        <h3>Project Title 2</h3>
+        <p>A brief description of Project 2. What problem does it solve? What technologies were used?</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-item">
+        <h3>Project Title 3</h3>
+        <p>A brief description of Project 3. What problem does it solve? What technologies were used?</p>
+        <a href="#">View Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>If you'd like to get in touch, feel free to reach out via email or connect with me on social media.</p>
+    <ul>
+      <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">Your LinkedIn Profile</a></li>
+      <li>GitHub: <a href="https://github.com/yourusername" target="_blank">Your GitHub Profile</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 YourName. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

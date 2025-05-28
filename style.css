@@ -1,0 +1,301 @@
+:root {
+  --color-bg-deep-dark: rgb(23, 27, 33);
+  --color-bg-section: rgb(34, 40, 49);
+  --color-accent-primary: rgb(125, 156, 190);
+  --color-accent-secondary: rgb(205, 219, 235);
+  --color-text-light: rgb(238, 238, 238);
+  --color-text-dark: rgb(23, 27, 33); /* Matching deep dark for text on light accent */
+
+  /* Variations with opacity for specific uses */
+  --color-accent-primary-shadow: rgba(0, 123, 255, 0.3);
+  --color-accent-secondary-shadow: rgba(0, 173, 181, 0.4);
+  --color-accent-primary-hover-bg-mobile: rgba(0, 123, 255, 0.1);
+  --color-text-light-muted: rgba(238, 238, 238, 0.7);
+}
+
+/* style.css */
+html {
+  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+body {
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Changed to Roboto, a popular modern font */
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+  background-color: var(--color-bg-deep-dark); /* Deep dark background */
+  color: var(--color-text-light); /* Main light text color */
+  -webkit-font-smoothing: antialiased; /* Smoother font rendering on WebKit */
+  -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on Firefox */
+}
+
+header {
+  background: var(--color-bg-deep-dark); /* Deep dark header */
+  color: var(--color-text-light); /* Light text color */
+  padding: 1.5rem 2rem; /* Adjusted padding */
+  text-align: center;
+  position: sticky; /* Sticky header */
+  top: 0;
+  z-index: 1000; /* Ensure header is above other content */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.7); /* Slightly darker shadow for more contrast on new bg */
+}
+
+header nav ul {
+  padding: 0;
+  list-style: none;
+  margin: 0; /* Remove default margin */
+}
+
+header nav ul li {
+  display: inline;
+  margin: 0 18px; /* Slightly adjusted spacing */
+}
+
+header nav ul li a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500; /* Medium weight for nav links */
+  padding: 0.5rem 0.25rem; /* Add some padding for better click area and visual separation */
+  transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Smooth transition for hover */
+  border-bottom: 2px solid transparent; /* Underline effect preparation */
+}
+
+header nav ul li a:hover,
+header nav ul li a.active { 
+  color: var(--color-accent-primary); /* Beige accent for active/hover */
+  border-bottom-color: var(--color-accent-primary); /* Beige accent for border */
+}
+
+.hero {
+  background: linear-gradient(rgba(20,20,20,0.7), rgba(20,20,20,0.7)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1350') center/cover no-repeat; /* Overlay with new dark bg color */
+  color: #fff; /* Hero text can remain white for contrast against image */
+  padding: 6rem 2rem; /* Increased padding */
+  text-align: center;
+  min-height: 80vh; /* Ensure hero takes up significant viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 3.8rem; 
+  margin-bottom: 1rem;
+  font-weight: 700; /* Bolder for more impact */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+}
+
+.hero p {
+  font-size: 1.7rem; 
+  margin-bottom: 2.5rem; /* Increased margin */
+  max-width: 700px; /* Constrain width for better readability */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* Text shadow for readability */
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--color-accent-primary); /* Beige accent for button background */
+  color: var(--color-text-dark); /* Dark text for contrast */
+  padding: 1rem 2rem; /* Adjusted padding */
+  text-decoration: none;
+  border-radius: 30px; /* More rounded, modern button */
+  font-size: 1.2rem; 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
+  font-weight: 600; /* Bolder button text */
+  box-shadow: 0 4px 15px var(--color-accent-primary-shadow); /* Shadow with beige accent */
+}
+
+.cta-button:hover {
+  background: var(--color-accent-secondary); /* Lighter blue-grey for hover */
+  color: var(--color-text-dark); /* Dark text still on hover */
+  transform: translateY(-3px) scale(1.05); /* Lift and slightly scale on hover */
+  box-shadow: 0 6px 20px var(--color-accent-secondary-shadow); /* Shadow with hover accent */
+}
+
+section {
+  padding: 4rem 2rem; /* Consistent, increased padding */
+  margin: 40px auto; /* Increased margin and centered */
+  background: var(--color-bg-section); /* Dark blue-grey for section background */
+  border-radius: 12px; /* Softer, more modern border radius */
+  max-width: 1100px; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Adjusted shadow for contrast */
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 2.5rem; 
+  color: var(--color-accent-primary); /* Beige accent for heading */
+  font-size: 2.5rem; 
+  font-weight: 600;
+  position: relative; /* For underline pseudo-element */
+  padding-bottom: 0.75rem; /* Space for underline */
+}
+
+/* Underline effect for section headings */
+section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-accent-primary); /* Beige accent for underline */
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Larger minmax */
+  gap: 30px; /* Increased gap */
+}
+
+.project-item {
+  background: var(--color-bg-deep-dark); /* Deep dark background for project items */
+  padding: 2rem; 
+  border: 1px solid var(--color-bg-section); /* Dark blue-grey border */
+  border-radius: 10px; /* Consistent rounded corners */
+  text-align: left; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex; /* Use flexbox for better internal alignment */
+  flex-direction: column; /* Stack content vertically */
+}
+
+.project-item:hover {
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.6); 
+  border-color: var(--color-accent-primary); /* Beige accent for hover border */
+}
+
+.project-item h3 {
+  margin-top: 0;
+  margin-bottom: 1rem; /* Adjusted space */
+  color: var(--color-accent-primary); /* Beige accent for title */
+  font-size: 1.6rem; /* Slightly larger project titles */
+  font-weight: 600;
+}
+
+.project-item p {
+  font-size: 1rem; 
+  margin-bottom: 1.5rem; /* More space for readability */
+  color: var(--color-text-light); /* Main light text color */
+  flex-grow: 1; /* Allow paragraph to take available space, aligning buttons */
+}
+
+.project-item a.project-link {
+  display: inline-block;
+  align-self: flex-start; /* Align button to the start */
+  margin-top: auto; /* Push to bottom if content above is short */
+  padding: 0.7rem 1.4rem; 
+  background: var(--color-accent-primary); /* Beige accent for button */
+  color: var(--color-text-dark); /* Dark text for contrast */
+  text-decoration: none;
+  border-radius: 20px; /* Rounded button */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+}
+
+.project-item a.project-link:hover {
+  background: var(--color-accent-secondary); /* Lighter blue-grey for hover */
+  color: var(--color-text-dark); /* Dark text still */
+  transform: scale(1.05); /* Slight scale effect */
+}
+
+#contact {
+  background: var(--color-bg-section); /* Dark blue-grey for section background */
+}
+
+#contact ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+#contact ul li {
+  margin-bottom: 18px; /* Adjusted spacing */
+  font-size: 1.15rem; /* Adjusted contact info font size */
+}
+
+#contact ul li a {
+  color: var(--color-accent-primary); /* Beige accent for links */
+  text-decoration: none;
+  transition: color 0.3s ease, letter-spacing 0.3s ease; /* Added letter-spacing transition */
+  padding: 0.25rem;
+}
+
+#contact ul li a:hover {
+  color: var(--color-accent-secondary); /* Lighter blue-grey for hover */
+  text-decoration: underline;
+  letter-spacing: 0.5px; /* Slight letter spacing increase on hover */
+}
+
+footer {
+  text-align: center;
+  padding: 2.5rem 0; 
+  background: rgb(20, 20, 20); /* Deep dark footer */
+  color: rgba(252, 252, 252, 0.7); /* Softer version of new light text color */
+  margin-top: 40px; 
+  border-top: 1px solid rgb(65, 71, 86); /* Dark blue-grey border */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) { /* Adjusted breakpoint for tablets */
+  .hero h1 {
+    font-size: 3rem;
+  }
+  .hero p {
+    font-size: 1.5rem;
+  }
+  section {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 70vh; /* Adjust hero height */
+    padding: 4rem 1rem; /* Adjust padding */
+  }
+  .hero h1 {
+    font-size: 2.5rem; 
+  }
+
+  .hero p {
+    font-size: 1.25rem; 
+  }
+
+  header {
+    padding: 1rem 1.5rem; /* Adjust header padding */
+  }
+
+  header nav ul li {
+    display: block;
+    margin: 15px 0; 
+  }
+  header nav ul li a {
+    padding: 0.75rem; /* Larger click area for mobile nav */
+    border-bottom: none; /* Remove bottom border for stacked links */
+  }
+  header nav ul li a:hover,
+  header nav ul li a.active {
+    background-color: rgba(212, 199, 160, 0.1); /* Subtle background with beige accent */
+    border-bottom: none;
+    color: rgb(212, 199, 160); /* Ensure text color is accent on active/hover */
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  section {
+    margin: 30px 15px; 
+    padding: 2.5rem 1.5rem; 
+  }
+  section h2 {
+    font-size: 2rem;
+  }
+  .project-item a.project-link {
+    width: 100%; /* Make project button full width on mobile */
+    text-align: center;
+  }
+} 
