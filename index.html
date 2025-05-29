@@ -1,70 +1,457 @@
 <!-- index.html 範例 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hi, I'm Jim - Software Engineer</title>
+  <title>Jim Wu's Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Particles.js for background effects -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <nav>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Links</a></li>
       </ul>
     </nav>
   </header>
 
   <section id="home" class="hero">
-    <h1>Welcome! I'm Jim</h1>
-    <p>A passionate Software Engineer based in Taipei, Taiwan.</p>
-    <a href="#projects" class="cta-button">View My Work</a>
+    <div id="particles-js"></div>
+    <div class="hero-content">
+      <div class="typing-container">
+        <h1 class="fade-in">Hi, I'm <span class="highlight">Jim Wu</span></h1>
+      </div>
+      <p class="fade-in">A <span class="role-rotate">software engineer</span> from Taiwan, Taipei</p>
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <i class="fas fa-code"></i>
+          <span class="stat-number" data-target="100">8</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-coffee"></i>
+          <span class="stat-number" data-target="500">15</span>
+          <span class="stat-label">Cups of Coffee</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-users"></i>
+          <span class="stat-number" data-target="50">2</span>
+          <span class="stat-label">Happy Clients</span>
+        </div>
+      </div>
+      <a href="#projects" class="cta-button fade-in">
+        <span>View my projects</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
   </section>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Hello! I'm Jim. I'm a software engineer with a passion for building web applications and mobile apps.</p>
-    <p>I have experience with [Skill 1], [Skill 2], and [Skill 3]. I'm always eager to learn new things and take on new challenges.</p>
-  </section>
-
-  <section id="projects">
-    <h2>My Projects</h2>
-    <div class="project-grid">
-      <div class="project-item">
-        <h3>Project Title 1</h3>
-        <p>A brief description of Project 1. What problem does it solve? What technologies were used?</p>
-        <a href="#">View Project</a>
-      </div>
-      <div class="project-item">
-        <h3>Project Title 2</h3>
-        <p>A brief description of Project 2. What problem does it solve? What technologies were used?</p>
-        <a href="#">View Project</a>
-      </div>
-      <div class="project-item">
-        <h3>Project Title 3</h3>
-        <p>A brief description of Project 3. What problem does it solve? What technologies were used?</p>
-        <a href="#">View Project</a>
+  <section id="about" class="fade-in">
+    <div class="container">
+      <h2>About me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Yo! I'm Jim Wu, a software engineer stoked about building <strong>LLM-powered</strong> solutions, and web apps.</p>
+          <div class="skills-container">
+            <h3>Tech Stack</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <i class="fab fa-python"></i>
+                <span>Python</span>
+              </div>
+              <div class="skill-item">
+                <i class="fab fa-js"></i>
+                <span>JavaScript</span>
+              </div>
+              <div class="skill-item">
+                <i class="fab fa-react"></i>
+                <span>React</span>
+              </div>
+              <div class="skill-item">
+                <i class="fab fa-vuejs"></i>
+                <span>Vue</span>
+              </div>
+              <div class="skill-item">
+                <i class="fab fa-node-js"></i>
+                <span>Node.js</span>
+              </div>
+              <div class="skill-item">
+                <i class="fab fa-git-alt"></i>
+                <span>Git</span>
+              </div>
+              <div class="skill-item">
+                <i class="fas fa-database"></i>
+                <span>Databases</span>
+              </div>
+              <div class="skill-item">
+                <i class="fas fa-robot"></i>
+                <span>AI/ML</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="profile-card">
+            <div class="card-glow"></div>
+            <div class="code-snippet">
+              <div class="code-header">
+                <div class="dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>developer.js</span>
+              </div>
+              <div class="code-content">
+                <span class="code-line"><span class="keyword">const</span> developer = {</span>
+                <span class="code-line">  name: <span class="string">"Jim Wu"</span>,</span>
+                <span class="code-line">  role: <span class="string">"Software Engineer"</span>,</span>
+                <span class="code-line">  location: <span class="string">"Taiwan"</span>,</span>
+                <span class="code-line">  passion: <span class="string">"Vibe coding"</span></span>
+                <span class="code-line">  quote: <span class="string">"Never gonna give you up, never gonna let you down."</span></span>
+                <span class="code-line">};</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p>If you'd like to get in touch, feel free to reach out via email or connect with me on social media.</p>
+  <section id="projects" class="fade-in">
+    <div class="container">
+      <h2>Projects & Expertise</h2>
+      <div class="project-grid">
+        <div class="project-item fade-in" data-tech="web">
+          <div class="project-header">
+            <h3><i class="fas fa-globe"></i> Full-stack Website</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Vue</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">SQL</span>
+            </div>
+          </div>
+          <ul>
+            <li>Scalable full-stack web app with dynamic front-end and secure API</li>
+            <li>Front-end development and UI design with React and Vue.js</li>
+            <li>Backend services and RESTful APIs with Node.js and Express</li>
+            <li>Data persistence and modeling with SQL/NoSQL databases</li>
+          </ul>
+          <div class="project-footer">
+            <a href="#" class="project-link">
+              <span>View project</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-item fade-in featured" data-tech="ai">
+          <div class="featured-badge">
+            <i class="fas fa-crown"></i>
+            <span>Featured</span>
+          </div>
+          <div class="project-header">
+            <h3><i class="fas fa-robot"></i> LLM Chatbot</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">LangChain</span>
+              <span class="tech-tag">FastAPI</span>
+            </div>
+          </div>
+          <ul>
+            <li>Answering queries from uploaded files (PDF, DOCX, etc.)</li>
+            <li>Multilingual queries and local LLM model switching</li>
+            <li>Role-based access with user/admin</li>
+            <li>Dashboard for usage tracking, server monitoring, and user feedback</li>
+          </ul>
+          <div class="project-footer">
+            <a href="#" class="project-link">
+              <span>View project</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-item fade-in" data-tech="data">
+          <div class="project-header">
+            <h3><i class="fas fa-chart-line"></i> Data Analysis</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Tableau</span>
+              <span class="tech-tag">ML</span>
+            </div>
+          </div>
+          <ul>
+            <li>Sentiment and trend analysis on social media and news content</li>
+            <li>Customer segmentation on sales and behavioral data</li>
+            <li>Interactive dashboard design and data visualization with Tableau</li>
+            <li>Text classification using machine learning models</li>
+          </ul>
+          <div class="project-footer">
+            <a href="#" class="project-link">
+              <span>View project</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project filter buttons -->
+      <div class="project-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="web">Web Dev</button>
+        <button class="filter-btn" data-filter="ai">AI/ML</button>
+        <button class="filter-btn" data-filter="data">Data Science</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="fade-in">
+    <h2>Links</h2>
     <ul>
-      <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li>
-      <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">Your LinkedIn Profile</a></li>
-      <li>GitHub: <a href="https://github.com/yourusername" target="_blank">Your GitHub Profile</a></li>
+      <li>
+        <a href="https://linkedin.com/in/jim-profile" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/jim408401" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </li>
     </ul>
   </section>
 
-  <footer>
-    <p>&copy; 2024 YourName. All rights reserved.</p>
+  <footer class="fade-in">
+    <p>&copy; 2025 Jim Wu. All rights reserved.</p>
   </footer>
+
+  <script>
+    // Particles.js configuration
+    if (window.particlesJS) {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: '#6e9fd4' },
+          shape: {
+            type: 'circle',
+            stroke: { width: 0, color: '#000000' },
+            polygon: { nb_sides: 5 }
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+            anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: { enable: false, speed: 40, size_min: 0.1, sync: false }
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: '#6e9fd4',
+            opacity: 0.4,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 6,
+            direction: 'none',
+            random: false,
+            straight: false,
+            out_mode: 'out',
+            bounce: false,
+            attract: { enable: false, rotateX: 600, rotateY: 1200 }
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'repulse' },
+            onclick: { enable: true, mode: 'push' },
+            resize: true
+          },
+          modes: {
+            grab: { distance: 400, line_linked: { opacity: 1 } },
+            bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+            repulse: { distance: 200, duration: 0.4 },
+            push: { particles_nb: 4 },
+            remove: { particles_nb: 2 }
+          }
+        },
+        retina_detect: true
+      });
+    }
+
+    // Counter animation
+    function animateCounter() {
+      const counters = document.querySelectorAll('.stat-number');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const count = parseInt(counter.innerText);
+        const increment = target / 200;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(() => animateCounter(), 1);
+        } else {
+          counter.innerText = target;
+        }
+      });
+    }
+
+    // Role rotation animation
+    const roles = ['software engineer', 'full-stack developer', 'LLM enthusiast', 'vibe coder'];
+    let currentRole = 0;
+    
+    function rotateRole() {
+      const roleElement = document.querySelector('.role-rotate');
+      if (roleElement) {
+        roleElement.style.opacity = '0';
+        setTimeout(() => {
+          currentRole = (currentRole + 1) % roles.length;
+          roleElement.textContent = roles[currentRole];
+          roleElement.style.opacity = '1';
+        }, 300);
+      }
+    }
+
+    // Typing effect for name
+    function typeWriter(element, text, speed = 100) {
+      let i = 0;
+      element.innerHTML = '';
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Trigger counter animation when stats come into view
+          if (entry.target.querySelector('.hero-stats')) {
+            setTimeout(animateCounter, 500);
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(el => {
+        observer.observe(el);
+      });
+
+      // Start role rotation
+      setInterval(rotateRole, 3000);
+
+      // Project filtering
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const projectItems = document.querySelectorAll('.project-item');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+
+          const filter = btn.getAttribute('data-filter');
+          
+          projectItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-tech') === filter) {
+              item.style.display = 'flex';
+              item.classList.remove('hidden');
+              // Add animation
+              setTimeout(() => {
+                item.style.transform = 'translateY(0)';
+                item.style.opacity = '1';
+              }, 100);
+            } else {
+              item.style.transform = 'translateY(20px)';
+              item.style.opacity = '0';
+              setTimeout(() => {
+                item.style.display = 'none';
+                item.classList.add('hidden');
+              }, 300);
+            }
+          });
+        });
+      });
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetSection.offsetTop - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      let lastScrollTop = 0;
+      const header = document.querySelector('header');
+      
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        
+        lastScrollTop = scrollTop;
+      });
+
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 100);
+    });
+
+    window.addEventListener('load', () => {
+      const heroElements = document.querySelectorAll('.hero .fade-in');
+      heroElements.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add('visible');
+        }, index * 200);
+      });
+    });
+  </script>
 
 </body>
 </html>
