@@ -3,184 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jim | Full-Stack & AI Engineer</title>
-<!-- 引入高質感字體 -->
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Jim — Full-Stack & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
-/* 基礎重置與變數 */
+/* ─── RESET & VARS ─────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0A0A0A; --surface:#111111; --surface2:#1A1A1A;
-  --border:#252525; --border2:#333;
-  --text:#F0EDE6; --muted:#888; --subtle:#555;
-  --accent:#E8FF3C; --accent2:#3CFFC8;
+  --bg:#06070A;
+  --bg2:#0D0F14;
+  --surface:#111318;
+  --surface2:#181B22;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#EEF0F5;
+  --muted:#6B7280;
+  --subtle:#374151;
+  --gold:#C9A84C;
+  --gold2:#E8C97A;
+  --teal:#2DD4BF;
+  --red:#F87171;
+  --glow:rgba(201,168,76,0.15);
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;cursor:none}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
 
-/* 自定義游標特效 */
-@media (min-width: 769px) {
-  .cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s ease,width 0.2s,height 0.2s}
-  .cursor-trail{position:fixed;width:40px;height:40px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.4;transition:all 0.15s ease}
+/* ─── CUSTOM CURSOR ────────────────────────────────── */
+@media(min-width:769px){
+  #cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform 0.1s ease;}
+  #cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;will-change:left,top}
+  #cur-ring.hovered{width:60px;height:60px;border-color:transparent;background:rgba(201,168,76,0.1);backdrop-filter:blur(2px);}
 }
-@media (max-width: 768px) {
-  body { cursor: auto; }
-  .cursor, .cursor-trail { display: none; }
-}
+@media(max-width:768px){body{cursor:auto}#cur,#cur-ring{display:none}}
 
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
-@media (min-width: 769px) { .container{padding:0 40px} }
+/* ─── NOISE & GRID OVERLAY ─────────────────────────── */
+#noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#grid{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);background-size:80px 80px}
 
-/* 導覽列 */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,10,10,0.7);border-bottom:1px solid var(--border)}
-@media (min-width: 769px) { nav{padding:20px 40px} }
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.02em}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:24px}
-@media (max-width: 600px) { .nav-links { display: none; } }
-.nav-links a{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+/* ─── AMBIENT GLOW (NEW) ───────────────────────────── */
+.ambient-glow{position:fixed;width:600px;height:600px;background:radial-gradient(circle, rgba(45,212,191,0.08) 0%, transparent 60%);border-radius:50%;pointer-events:none;z-index:0;transform:translate(-50%, -50%);transition:left 0.8s ease-out, top 0.8s ease-out;}
+
+/* ─── LAYOUT ───────────────────────────────────────── */
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+@media(min-width:769px){.wrap{padding:0 48px}}
+
+/* ─── NAV ──────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:64px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,7,10,0.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transform:translateY(-100%);animation:slideDown 0.8s ease 0.5s forwards;}
+@keyframes slideDown{to{transform:translateY(0);}}
+@media(min-width:769px){nav{padding:0 48px}}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.12em;color:var(--text)}
+.nav-logo em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:36px}
+@media(max-width:640px){.nav-links{display:none}}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
 .nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
 
-/* Hero 區塊 */
-.hero{min-height:100vh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;width:100%}
-@media (min-width: 900px) { .hero-grid{grid-template-columns:1.2fr 1fr;} }
-.status-dot{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px}
-.dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(60,255,200,0.4)}50%{opacity:0.7;box-shadow:0 0 0 8px rgba(60,255,200,0)}}
-h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.04em;margin-bottom:24px}
-h1 .accent-text{color:var(--accent)}
-.hero-desc{font-size:1rem;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:40px}
-.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap: wrap;}
-.btn-primary{background:var(--accent);color:#000;padding:14px 28px;font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all 0.2s;border:none;cursor:pointer}
-@media (min-width: 769px) { .btn-primary { cursor: none; } }
-.btn-primary:hover{background:var(--accent2);transform:translateY(-2px)}
-.btn-secondary{color:var(--text);font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--border2);padding:14px 24px;border-radius:4px;transition:all 0.2s}
-.btn-secondary:hover{background:var(--surface2);border-color:var(--muted)}
+/* ─── HERO ─────────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:64px;position:relative;overflow:hidden}
 
-/* 終端機卡片 */
-.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden;width: 100%;}
-@media (min-width: 769px) { .hero-card{padding:32px;} }
-.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.terminal-bar{display:flex;gap:8px;margin-bottom:24px}
-.terminal-dot{width:10px;height:10px;border-radius:50%}
-.t1{background:#FF5F56}.t2{background:#FFBD2E}.t3{background:#27C93F}
-.terminal-code{font-family:'DM Mono',monospace;font-size:0.75rem;line-height:1.8;color:var(--muted); overflow-x: auto;}
-@media (min-width: 769px) { .terminal-code{font-size:0.85rem;line-height:2;} }
-.terminal-code .cmd{color:var(--accent2)}
-.terminal-code .str{color:var(--accent)}
-.terminal-code .key{color:#B594F0}
-.terminal-code .val{color:#7FDBCA}
-.terminal-code .cmt{color:var(--subtle);font-style:italic}
+/* Background floating letter */
+.hero-bg-letter{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(280px,40vw,480px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.06);user-select:none;pointer-events:none;letter-spacing:-.02em;animation:floatLetter 8s ease-in-out infinite;}
+@keyframes floatLetter { 0%,100%{transform:translateY(-50%) rotate(0deg);} 50%{transform:translateY(-55%) rotate(-2deg);} }
 
-.scroll-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--subtle);letter-spacing:0.15em;text-transform:uppercase}
-@media (max-height: 700px) { .scroll-hint { display: none; } }
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--subtle),transparent);animation:scrollAnim 2s ease infinite}
-@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-.bg-noise{position:fixed;inset:0;pointer-events:none;opacity:0.03;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")}
+.hero-inner{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;width:100%;padding:60px 0}
+@media(min-width:900px){.hero-inner{grid-template-columns:1.15fr 1fr}}
 
-/* 區塊標題 */
-section{padding:80px 0;position:relative;z-index:1}
-@media (min-width: 769px) { section{padding:120px 0} }
-.section-header{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
-.section-num{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.1em}
-h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.03em}
-.section-line{flex:1;height:1px;background:var(--border);margin-left:16px;align-self:center}
+/* Hero Entrance Animations */
+.hero-reveal { opacity: 0; transform: translateY(30px); animation: fadeUpReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.hero-reveal:nth-child(1) { animation-delay: 0.2s; }
+.hero-reveal:nth-child(2) { animation-delay: 0.4s; }
+.hero-reveal:nth-child(3) { animation-delay: 0.6s; }
+.hero-reveal:nth-child(4) { animation-delay: 0.8s; }
+@keyframes fadeUpReveal { to { opacity: 1; transform: translateY(0); } }
 
-/* 技能區塊 */
-.expertise-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border-radius:16px;overflow:hidden}
-@media (min-width: 769px) { .expertise-grid{grid-template-columns:1fr 1fr;} }
-.expertise-card{background:var(--surface);padding:32px;transition:background 0.3s}
-@media (min-width: 769px) { .expertise-card{padding:40px;} }
-.expertise-card:hover{background:var(--surface2)}
-.exp-icon{font-size:2rem;margin-bottom:20px;line-height:1}
-.exp-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:12px}
-.exp-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
-.skill-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.skill-item{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem}
-.skill-bar{width:100px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
-.skill-fill{height:100%;border-radius:2px;background:var(--accent)}
-.exp-tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--accent);background:rgba(232,255,60,0.08);border:1px solid rgba(232,255,60,0.2);padding:4px 10px;border-radius:3px;letter-spacing:0.05em}
-.tag.teal{color:var(--accent2);background:rgba(60,255,200,0.08);border-color:rgba(60,255,200,0.2)}
+/* Status Pill */
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;background:rgba(45,212,191,.07);border:1px solid rgba(45,212,191,.2);padding:6px 14px;border-radius:100px;margin-bottom:28px;box-shadow: 0 0 15px rgba(45,212,191,0.1);}
+.pill-dot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:blink 1.8s ease infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(45,212,191,.5)}60%{opacity:.5;box-shadow:0 0 0 6px rgba(45,212,191,0)}}
 
-/* 經驗區塊 (新增) */
-.experience-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 16px; overflow: hidden;}
-.job-item { background: var(--surface); padding: 32px; display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; transition: background 0.3s; }
-@media (min-width: 769px) { .job-item { grid-template-columns: 150px 1fr; gap: 40px; padding: 40px; } }
-.job-item:hover { background: var(--surface2); }
-.job-date { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--accent); padding-top: 4px; }
-.job-header { margin-bottom: 20px; }
-.job-role { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); display: inline-block; margin-right: 8px;}
-.job-company { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--accent2); display: inline-block;}
-.job-desc-list { list-style: none; margin-bottom: 24px; }
-.job-desc-list li { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; position: relative; padding-left: 20px; }
-.job-desc-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); font-family: monospace;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,9vw,7.5rem);line-height:.92;letter-spacing:.03em;margin-bottom:20px;position:relative;}
+h1 .gold{color:var(--gold)}
+h1 .thin{font-family:'Outfit',sans-serif;font-weight:300;font-size:clamp(1.2rem,3vw,2.2rem);display:block;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 
-/* 專案區塊 */
-.projects-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
-.project-item{background:var(--bg);padding:32px;display:grid;grid-template-columns:1fr;gap:20px;align-items:start;transition:background 0.3s;cursor:pointer}
-@media (min-width: 769px) { .project-item{grid-template-columns:auto 1fr auto;gap:40px;padding:40px; cursor:none;} }
-.project-item:hover{background:var(--surface)}
-.project-item:hover .project-arrow{opacity:1;transform:translate(4px,-4px)}
-.project-num{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--subtle);padding-top:4px}
-.project-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.project-year{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted)}
-.project-badge{font-family:'DM Mono',monospace;font-size:0.65rem;background:rgba(255,75,75,0.1);color:#FF8080;border:1px solid rgba(255,75,75,0.3);padding:3px 10px;border-radius:3px}
-.project-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:10px}
-.project-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;max-width:600px;margin-bottom:20px}
-.project-stack{display:flex;flex-wrap:wrap;gap:6px}
-.stack-tag{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--subtle);border:1px solid var(--border);padding:4px 10px;border-radius:3px}
-.project-arrow{font-size:1.5rem;color:var(--accent);opacity:0;transition:all 0.2s;padding-top:4px; display: none;}
-@media (min-width: 769px) { .project-arrow{display: block;} }
+/* ENGINEER Glitch Hover Effect */
+.glitch-text { display: inline-block; position: relative; transition: color 0.3s;}
+.glitch-text:hover { color: var(--gold); animation: glitchAnim 0.3s linear infinite; text-shadow: 2px 0 var(--teal), -2px 0 var(--red); cursor: none;}
+@keyframes glitchAnim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
+}
 
-/* 關於我與數據統計 */
-.about-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
-@media (min-width: 900px) { .about-grid{grid-template-columns:1fr 1fr;gap:60px;} }
-.about-text p{font-size:0.95rem;color:var(--muted);line-height:1.9;margin-bottom:20px}
-.about-text strong{color:var(--text)}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-top:32px}
-.stat-box{background:var(--surface);padding:24px;text-align:center}
-.stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1}
-.stat-label{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
-.timeline{display:flex;flex-direction:column}
-.timeline-item{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--border)}
-@media (min-width: 769px) { .timeline-item{grid-template-columns:100px 1fr;gap:24px;} }
-.timeline-item:last-child{border-bottom:none}
-.tl-year{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);padding-top:4px}
-.tl-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:4px}
-.tl-sub{font-size:0.85rem;color:var(--muted)}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:430px;margin-bottom:44px;font-weight:300}
 
-/* 聯絡區塊 */
-.contact-inner{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 20px;text-align:center;position:relative;overflow:hidden}
-@media (min-width: 769px) { .contact-inner{padding:80px;} }
-.contact-inner::before{content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,255,60,0.05),transparent 70%)}
-.contact-label{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px}
-.contact-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.1}
-.contact-heading span{color:var(--accent)}
-.contact-sub{font-size:0.95rem;color:var(--muted);margin-bottom:48px;line-height:1.7}
-.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-.contact-link{display:flex;align-items:center;gap:10px;border:1px solid var(--border2);padding:14px 24px;border-radius:8px;text-decoration:none;color:var(--text);font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.05em;transition:all 0.2s}
-.contact-link:hover{background:var(--surface2);border-color:var(--muted);transform:translateY(-2px)}
-.contact-link svg{width:16px;height:16px;fill:currentColor}
+/* Buttons with Shine Effect */
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{position:relative;overflow:hidden;background:var(--gold);color:#06070A;padding:13px 30px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:all .3s;cursor:none;border:none}
+.btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.4), rgba(255,255,255,0));transform:skewX(-25deg);animation:shine 3s infinite;}
+@keyframes shine { 0% { left: -100%; } 20%, 100% { left: 200%; } }
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow: 0 10px 20px rgba(201,168,76,0.2);}
 
-/* 頁尾 */
-footer{border-top:1px solid var(--border);padding:32px 0;display:flex;flex-direction:column;gap:16px;justify-content:space-between;align-items:center}
-@media (min-width: 600px) { footer{flex-direction:row;} }
-.footer-copy{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--subtle)}
-.footer-heart{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--subtle)}
-.footer-heart span{color:var(--accent)}
+.btn-outline{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border2);padding:13px 24px;border-radius:3px;transition:all .3s}
+.btn-outline:hover{color:var(--text);border-color:rgba(255,255,255,0.3);background: rgba(255,255,255,0.03);transform:translateY(-2px);}
+
+/* ─── TERMINAL CARD (3D TILT) ──────────────────────── */
+.term-wrapper { perspective: 1000px; opacity: 0; animation: fadeSlideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+@keyframes fadeSlideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+.term-card{background:var(--surface);border:1px solid var(--border2);border-radius:12px;overflow:hidden;position:relative;box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);transform-style: preserve-3d;transition: transform 0.1s ease-out;}
+.term-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.term-head{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.term-dot{width:11px;height:11px;border-radius:50%}
+.td1{background:#FF5F56}.td2{background:#FFBD2E}.td3{background:#27C93F}
+.term-title{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);margin-left:auto;letter-spacing:.08em}
+.term-body{padding:22px 20px;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:2;color:var(--muted);overflow-x:auto}
+.term-line { opacity: 0; transform: translateX(-10px); } /* For JS staggered animation */
+
+.c-key{color:#C792EA}.c-val{color:#7FC5A8}.c-str{color:var(--gold)}.c-prop{color:var(--teal)}.c-cmt{color:var(--subtle);font-style:italic}
+
+/* ─── SCROLL INDICATOR ─────────────────────────────── */
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--subtle);letter-spacing:.15em;text-transform:uppercase;opacity:0;animation:fadeUpReveal 1s ease 1.5s forwards;}
+@media(max-height:680px){.scroll-cue{display:none}}
+.scroll-bar{width:1px;height:48px;background:linear-gradient(var(--subtle),transparent);animation:scBar 2s ease infinite}
+@keyframes scBar{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ─── REMAINING SECTIONS (Kept Same as Before) ─────── */
+section{padding:100px 0;position:relative;z-index:1}
+@media(min-width:769px){section{padding:140px 0}}
+.sec-label{display:flex;align-items:center;gap:14px;margin-bottom:48px}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);letter-spacing:.12em;opacity:.8}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter-spacing:.06em;line-height:1}
+.sec-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);margin-left:12px}
+.exp-grid{display:grid;grid-template-columns:1fr;gap:2px;background:var(--border);border-radius:14px;overflow:hidden}
+@media(min-width:769px){.exp-grid{grid-template-columns:1fr 1fr}}
+.exp-card{background:var(--surface);padding:36px;transition:background .3s}
+@media(min-width:769px){.exp-card{padding:44px}}
+.exp-card:hover{background:var(--surface2)}
+.exp-icon-wrap{width:44px;height:44px;border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:1.1rem}
+.exp-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;margin-bottom:10px}
+.exp-blurb{font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:28px;font-weight:300}
+.bars{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.bar-row{display:flex;justify-content:space-between;align-items:center;font-size:.78rem}
+.bar-label{color:var(--text);font-weight:400}
+.bar-track{width:110px;height:2px;background:var(--border2);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;background:var(--gold);transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.bar-fill.teal{background:var(--teal)}
+.bar-fill.anim{transform:scaleX(1)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--gold);background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);padding:4px 10px;border-radius:2px;letter-spacing:.05em}
+.chip.teal{color:var(--teal);background:rgba(45,212,191,.06);border-color:rgba(45,212,191,.18)}
+.xp-list{display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:14px;overflow:hidden}
+.xp-item{background:var(--surface);padding:32px;display:grid;grid-template-columns:1fr;gap:20px;transition:background .3s}
+@media(min-width:769px){.xp-item{grid-template-columns:160px 1fr;gap:44px;padding:40px}}
+.xp-item:hover{background:var(--surface2)}
+.xp-date{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gold);line-height:1.6}
+.xp-current{display:inline-block;margin-top:6px;font-size:.6rem;background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.25);padding:2px 8px;border-radius:2px;letter-spacing:.08em;text-transform:uppercase}
+.xp-role{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;margin-bottom:4px}
+.xp-company{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--teal);margin-bottom:18px}
+.xp-list-inner{list-style:none;margin-bottom:20px}
+.xp-list-inner li{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:10px;padding-left:18px;position:relative;font-weight:300}
+.xp-list-inner li::before{content:'▸';position:absolute;left:0;color:var(--gold);font-size:.7rem;top:3px}
+.works-list{display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:14px;overflow:hidden}
+.work-link{text-decoration:none;color:inherit;display:block}
+.work-item{background:var(--bg2);padding:32px;display:grid;grid-template-columns:1fr;gap:16px;transition:background .3s;position:relative}
+@media(min-width:769px){.work-item{grid-template-columns:64px 1fr 40px;gap:40px;padding:40px;align-items:start}}
+.work-item:hover{background:var(--surface)}
+.work-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--subtle);padding-top:6px}
+.work-meta{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.work-year{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)}
+.work-award{font-family:'JetBrains Mono',monospace;font-size:.62rem;background:rgba(248,113,113,.1);color:#FCA5A5;border:1px solid rgba(248,113,113,.25);padding:3px 10px;border-radius:2px;letter-spacing:.05em}
+.work-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2rem);letter-spacing:.05em;margin-bottom:10px;line-height:1}
+.work-desc{font-size:.88rem;color:var(--muted);line-height:1.75;max-width:620px;margin-bottom:18px;font-weight:300}
+.work-arrow{font-size:1.2rem;color:var(--gold);opacity:0;transition:opacity .2s,transform .2s;display:none}
+@media(min-width:769px){.work-arrow{display:block}}
+.work-item:hover .work-arrow{opacity:1;transform:translate(3px,-3px)}
+.about-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:start}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:72px}}
+.about-body p{font-size:.93rem;color:var(--muted);line-height:1.95;margin-bottom:18px;font-weight:300}
+.about-body strong{color:var(--text);font-weight:500}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:12px;overflow:hidden;margin-top:36px}
+.kpi{background:var(--surface);padding:22px;text-align:center}
+.kpi-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.05em;color:var(--gold);line-height:1}
+.kpi-l{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
+.tl{display:flex;flex-direction:column}
+.tl-item{display:grid;grid-template-columns:90px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--border)}
+@media(min-width:769px){.tl-item{grid-template-columns:110px 1fr;gap:28px}}
+.tl-item:last-child{border-bottom:none}
+.tl-yr{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);padding-top:3px;line-height:1.5}
+.tl-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.05em;margin-bottom:4px}
+.tl-desc{font-size:.82rem;color:var(--muted);font-weight:300}
+.contact-box{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:52px 28px;text-align:center;position:relative;overflow:hidden}
+@media(min-width:769px){.contact-box{padding:96px 80px}}
+.contact-box::after{content:'';position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);width:500px;height:240px;border-radius:50%;background:radial-gradient(ellipse,var(--glow),transparent 70%);pointer-events:none}
+.ct-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:18px}
+.ct-head{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,6vw,4rem);letter-spacing:.05em;line-height:1;margin-bottom:14px}
+.ct-head em{color:var(--gold);font-style:normal}
+.ct-sub{font-size:.93rem;color:var(--muted);margin-bottom:48px;line-height:1.75;font-weight:300}
+.ct-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.ct-link{display:flex;align-items:center;gap:9px;border:1px solid var(--border2);padding:13px 24px;border-radius:6px;text-decoration:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.06em;transition:all .2s;cursor:none}
+.ct-link:hover{background:var(--surface2);border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
+.ct-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+footer{border-top:1px solid var(--border);padding:28px 0;display:flex;flex-direction:column;gap:12px;align-items:center;position:relative;z-index:1}
+@media(min-width:600px){footer{flex-direction:row;justify-content:space-between}}
+.ft-copy{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--subtle)}
+.ft-made{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--subtle)}
+.ft-made span{color:var(--gold)}
+.fi{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fi.vis{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
-<div class="bg-noise"></div>
-<!-- 自定義游標 -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-trail" id="trail"></div>
+<!-- Ambient Mouse Glow -->
+<div class="ambient-glow" id="ambientGlow"></div>
 
-<!-- 導覽列 -->
+<div id="noise"></div>
+<div id="grid"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">jim<span>.</span></div>
+  <div class="nav-logo">JIM<em>.</em></div>
   <div class="nav-links">
     <a href="#expertise">Expertise</a>
     <a href="#experience">Experience</a>
@@ -190,257 +239,225 @@ footer{border-top:1px solid var(--border);padding:32px 0;display:flex;flex-direc
   </div>
 </nav>
 
-<!-- Hero 區塊 -->
+<!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-left">
-        <div class="status-dot">
-          <span class="dot"></span>
-          Available for opportunities
-        </div>
-        <h1>
-          <span class="line1" style="display:block">Full-Stack</span>
-          <span class="line1" style="display:block">&amp; <span class="accent-text">AI</span></span>
-          <span class="line1" style="display:block">Engineer</span>
+  <div class="hero-bg-letter">J</div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <div class="pill hero-reveal"><span class="pill-dot"></span>Available for opportunities</div>
+        <h1 class="hero-reveal">
+          <span class="thin">Full-Stack &amp; AI</span>
+          <span class="glitch-text">ENGINEER</span>
         </h1>
-        <p class="hero-desc">Building scalable web systems and intelligent AI pipelines. Turning complex problems into clean, maintainable solutions.</p>
-        <div class="hero-actions">
-          <a href="#works" class="btn-primary">View My Work</a>
-          <a href="#contact" class="btn-secondary">Get in Touch →</a>
+        <p class="hero-sub hero-reveal">Building scalable web systems and intelligent AI pipelines. Turning complex problems into clean, maintainable solutions.</p>
+        <div class="hero-btns hero-reveal">
+          <a href="#works" class="btn-gold">View My Work</a>
+          <a href="#contact" class="btn-outline">Get in Touch →</a>
         </div>
       </div>
-      <div class="hero-right">
-        <!-- 終端機卡片 -->
-        <div class="hero-card">
-          <div class="terminal-bar">
-            <div class="terminal-dot t1"></div>
-            <div class="terminal-dot t2"></div>
-            <div class="terminal-dot t3"></div>
+      <div class="term-wrapper">
+        <div class="term-card" id="termCard">
+          <div class="term-head">
+            <div class="term-dot td1"></div>
+            <div class="term-dot td2"></div>
+            <div class="term-dot td3"></div>
+            <span class="term-title">jim.config.ts</span>
           </div>
-          <div class="terminal-code">
-            <div><span class="cmt">// jim.config.ts</span></div>
-            <div>&nbsp;</div>
-            <div><span class="key">const</span> <span class="val">engineer</span> = {</div>
-            <div>&nbsp;&nbsp;<span class="cmd">name</span>: <span class="str">"Jim"</span>,</div>
-            <div>&nbsp;&nbsp;<span class="cmd">role</span>: <span class="str">"Full-Stack &amp; AI Eng."</span>,</div>
-            <div>&nbsp;&nbsp;<span class="cmd">stack</span>: [</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"React"</span>, <span class="str">"Vue.js"</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Node.js"</span>, <span class="str">"Python"</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"LangChain"</span>, <span class="str">"RAG"</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"SQL/NoSQL"</span>, <span class="str">"C#"</span></div>
-            <div>&nbsp;&nbsp;],</div>
-            <div>&nbsp;&nbsp;<span class="cmd">status</span>: <span class="str">"open_to_work"</span></div>
-            <div>}</div>
-            <div>&nbsp;</div>
-            <div><span class="key">export default</span> <span class="val">engineer</span>;</div>
+          <div class="term-body" id="termBody">
+            <div class="term-line"><span class="c-cmt">// booting engineer profile...</span></div>
+            <div class="term-line">&nbsp;</div>
+            <div class="term-line"><span class="c-key">const</span> <span class="c-val">jim</span> = {</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">name</span>: <span class="c-str">"Jim"</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">role</span>: <span class="c-str">"Full-Stack &amp; AI Eng."</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">stack</span>: [</div>
+            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"React"</span>, <span class="c-str">"Vue.js"</span>, <span class="c-str">"Node.js"</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Python"</span>, <span class="c-str">"LangChain"</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"RAG"</span>, <span class="c-str">"C#"</span>, <span class="c-str">"SQL"</span></div>
+            <div class="term-line">&nbsp;&nbsp;],</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">status</span>: <span class="c-str">"open_to_work"</span> <span class="c-cmt">✓</span></div>
+            <div class="term-line">};</div>
+            <div class="term-line">&nbsp;</div>
+            <div class="term-line"><span class="c-key">export default</span> <span class="c-val">jim</span>;</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="scroll-hint">
-      <span>scroll</span>
-      <div class="scroll-line"></div>
-    </div>
+    <div class="scroll-cue"><span>scroll</span><div class="scroll-bar"></div></div>
   </div>
 </section>
 
-<!-- 專長區塊 -->
+<!-- EXPERTISE -->
 <section id="expertise">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">01 /</span>
+  <div class="wrap">
+    <div class="sec-label fi">
+      <span class="sec-num">01 /</span>
       <h2>Expertise</h2>
-      <div class="section-line"></div>
+      <div class="sec-rule"></div>
     </div>
-    <div class="expertise-grid">
-      <div class="expertise-card fade-in">
-        <div class="exp-icon">⬡</div>
-        <div class="exp-title">Full-stack Development</div>
-        <div class="exp-desc">Design and develop scalable web applications with robust system architecture and secure API integration.</div>
-        <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">React / Vue.js</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Node.js / Express</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">C# / .NET</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">SQL &amp; NoSQL</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+    <div class="exp-grid">
+      <div class="exp-card fi">
+        <div class="exp-icon-wrap">⬡</div>
+        <div class="exp-name">Full-Stack Dev</div>
+        <div class="exp-blurb">Design and develop scalable web applications with robust system architecture and secure API integration.</div>
+        <div class="bars">
+          <div class="bar-row"><span class="bar-label">React / Vue.js</span><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Node.js / Express</span><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
+          <div class="bar-row"><span class="bar-label">C# / .NET</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+          <div class="bar-row"><span class="bar-label">SQL &amp; NoSQL</span><div class="bar-track"><div class="bar-fill" data-w="75"></div></div></div>
         </div>
-        <div class="exp-tags">
-          <span class="tag">#JavaScript</span>
-          <span class="tag">#ReactJS</span>
-          <span class="tag">#VueJS</span>
-          <span class="tag">#Node.js</span>
-          <span class="tag">#C#</span>
+        <div class="chips">
+          <span class="chip">#JavaScript</span><span class="chip">#ReactJS</span><span class="chip">#VueJS</span><span class="chip">#Node.js</span><span class="chip">#C#</span>
         </div>
       </div>
-      <div class="expertise-card fade-in">
-        <div class="exp-icon">◈</div>
-        <div class="exp-title">LLM &amp; AI Systems</div>
-        <div class="exp-desc">Develop production-level AI chatbot systems with Retrieval-Augmented Generation (RAG) pipelines and LLM integrations.</div>
-        <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">LangChain / RAG</span><div class="skill-bar"><div class="skill-fill" style="width:88%;background:var(--accent2)"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Prompt Engineering</span><div class="skill-bar"><div class="skill-fill" style="width:92%;background:var(--accent2)"></div></div></div>
-          <div class="skill-item"><span class="skill-name">FastAPI / Python</span><div class="skill-bar"><div class="skill-fill" style="width:82%;background:var(--accent2)"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Vector Databases</span><div class="skill-bar"><div class="skill-fill" style="width:78%;background:var(--accent2)"></div></div></div>
+      <div class="exp-card fi">
+        <div class="exp-icon-wrap">◈</div>
+        <div class="exp-name">LLM &amp; AI Systems</div>
+        <div class="exp-blurb">Develop production-level AI chatbot systems with Retrieval-Augmented Generation (RAG) pipelines and LLM integrations.</div>
+        <div class="bars">
+          <div class="bar-row"><span class="bar-label">LangChain / RAG</span><div class="bar-track"><div class="bar-fill teal" data-w="88"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Prompt Engineering</span><div class="bar-track"><div class="bar-fill teal" data-w="92"></div></div></div>
+          <div class="bar-row"><span class="bar-label">FastAPI / Python</span><div class="bar-track"><div class="bar-fill teal" data-w="82"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Vector Databases</span><div class="bar-track"><div class="bar-fill teal" data-w="78"></div></div></div>
         </div>
-        <div class="exp-tags">
-          <span class="tag teal">#Python</span>
-          <span class="tag teal">#LLM</span>
-          <span class="tag teal">#RAG</span>
-          <span class="tag teal">#NLP</span>
-          <span class="tag teal">#FastAPI</span>
+        <div class="chips">
+          <span class="chip teal">#Python</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span><span class="chip teal">#NLP</span><span class="chip teal">#FastAPI</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 工作經歷區塊 (新增) -->
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">02 /</span>
+  <div class="wrap">
+    <div class="sec-label fi">
+      <span class="sec-num">02 /</span>
       <h2>Experience</h2>
-      <div class="section-line"></div>
+      <div class="sec-rule"></div>
     </div>
-    <div class="experience-list">
-      
-      <!-- 工作 1: 曜祥網技 -->
-      <div class="job-item fade-in">
-        <div class="job-date">2025.07 — Present</div>
-        <div class="job-content">
-          <div class="job-header">
-            <h3 class="job-role">Software Engineer</h3>
-            <span class="job-company">@ Web-Secure (曜祥網技)</span>
-          </div>
-          <ul class="job-desc-list">
+    <div class="xp-list">
+      <div class="xp-item fi">
+        <div>
+          <div class="xp-date">2025.07<br>— Present</div>
+          <span class="xp-current">Current</span>
+        </div>
+        <div>
+          <div class="xp-role">Software Engineer</div>
+          <div class="xp-company">@ Web-Secure (曜祥網技)</div>
+          <ul class="xp-list-inner">
             <li>Information security system analysis, design, and development.</li>
             <li>Integrated AI Chatbot solutions into enterprise products.</li>
           </ul>
-          <div class="project-stack">
-            <span class="stack-tag">C#</span>
-            <span class="stack-tag">ASP.NET MVC</span>
-            <span class="stack-tag">SQL Server</span>
-            <span class="stack-tag">AI</span>
-            <span class="stack-tag">LLM</span>
-            <span class="stack-tag">RAG</span>
+          <div class="chips">
+            <span class="chip">#C#</span><span class="chip">#ASP.NET MVC</span><span class="chip">#SQL Server</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span>
           </div>
         </div>
       </div>
-
-      <!-- 工作 2: 台達電子 -->
-      <div class="job-item fade-in">
-        <div class="job-date">2024.07 — 2025.06</div>
-        <div class="job-content">
-          <div class="job-header">
-            <h3 class="job-role">Software Dev Intern</h3>
-            <span class="job-company">@ Delta Electronics (台達電子)</span>
-          </div>
-          <ul class="job-desc-list">
+      <div class="xp-item fi">
+        <div>
+          <div class="xp-date">2024.07<br>— 2025.06</div>
+        </div>
+        <div>
+          <div class="xp-role">Software Dev Intern</div>
+          <div class="xp-company">@ Delta Electronics (台達電子)</div>
+          <ul class="xp-list-inner">
             <li>Developed and tested internal platform tools for enterprise use.</li>
             <li>Engineered a QA chatbot system based on RAG architecture.</li>
             <li>Developed visual network topology graphs for firewall management.</li>
           </ul>
-          <div class="project-stack">
-            <span class="stack-tag">Python</span>
-            <span class="stack-tag">AI</span>
-            <span class="stack-tag">LLM</span>
-            <span class="stack-tag">RAG</span>
-            <span class="stack-tag">Software Engineering</span>
+          <div class="chips">
+            <span class="chip">#Python</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span><span class="chip">#Software Engineering</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- 作品區塊 -->
+<!-- WORKS -->
 <section id="works">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">03 /</span>
+  <div class="wrap">
+    <div class="sec-label fi">
+      <span class="sec-num">03 /</span>
       <h2>Selected Works</h2>
-      <div class="section-line"></div>
+      <div class="sec-rule"></div>
     </div>
-    <div class="projects-list">
-      <!-- 點擊專案可以導向連結，請替換 href -->
-      <a href="你的專案連結放這裡" target="_blank" style="text-decoration: none; color: inherit;">
-        <div class="project-item fade-in">
-          <div class="project-num">001</div>
-          <div class="project-content">
-            <div class="project-meta">
-              <span class="project-year">2024 — 2025</span>
+    <div class="works-list">
+      <a href="#" target="_blank" rel="noopener noreferrer" class="work-link">
+        <div class="work-item fi">
+          <div class="work-num">001</div>
+          <div>
+            <div class="work-meta">
+              <span class="work-year">2024 — 2025</span>
             </div>
-            <div class="project-title">Enterprise RAG Chatbot</div>
-            <div class="project-desc">A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. Supports file upload, vector storage, and semantic retrieval with reranking.</div>
-            <div class="project-stack">
-              <span class="stack-tag">LangChain</span>
-              <span class="stack-tag">Ollama</span>
-              <span class="stack-tag">Python</span>
-              <span class="stack-tag">FastAPI</span>
-              <span class="stack-tag">RAG</span>
+            <div class="work-title">Enterprise RAG Chatbot</div>
+            <div class="work-desc">A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. Supports file upload, vector storage, and semantic retrieval with reranking.</div>
+            <div class="chips">
+              <span class="chip">#LangChain</span><span class="chip">#Ollama</span><span class="chip">#Python</span><span class="chip">#FastAPI</span><span class="chip teal">#RAG</span>
             </div>
           </div>
-          <div class="project-arrow">↗</div>
+          <div class="work-arrow">↗</div>
         </div>
       </a>
-      
-      <a href="你的專案連結放這裡" target="_blank" style="text-decoration: none; color: inherit;">
-        <div class="project-item fade-in">
-          <div class="project-num">002</div>
-          <div class="project-content">
-            <div class="project-meta">
-              <span class="project-year">2022 — 2023</span>
-              <span class="project-badge">🏆 Merit Award</span>
+      <a href="#" target="_blank" rel="noopener noreferrer" class="work-link">
+        <div class="work-item fi">
+          <div class="work-num">002</div>
+          <div>
+            <div class="work-meta">
+              <span class="work-year">2022 — 2023</span>
+              <span class="work-award">🏆 Merit Award</span>
             </div>
-            <div class="project-title">Smart Cooking Assistant</div>
-            <div class="project-desc">Voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</div>
-            <div class="project-stack">
-              <span class="stack-tag">Speech-to-Text</span>
-              <span class="stack-tag">NLP</span>
-              <span class="stack-tag">Intent Recognition</span>
-              <span class="stack-tag">Python</span>
+            <div class="work-title">Smart Cooking Assistant</div>
+            <div class="work-desc">Voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</div>
+            <div class="chips">
+              <span class="chip">#Speech-to-Text</span><span class="chip teal">#NLP</span><span class="chip teal">#Intent Recognition</span><span class="chip">#Python</span>
             </div>
           </div>
-          <div class="project-arrow">↗</div>
+          <div class="work-arrow">↗</div>
         </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- 關於我 -->
+<!-- ABOUT -->
 <section id="about">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">04 /</span>
+  <div class="wrap">
+    <div class="sec-label fi">
+      <span class="sec-num">04 /</span>
       <h2>About Me</h2>
-      <div class="section-line"></div>
+      <div class="sec-rule"></div>
     </div>
     <div class="about-grid">
-      <div class="about-text">
+      <div class="about-body">
         <p>I'm a <strong>Full-Stack Developer and AI Systems Engineer</strong> who loves building things that work — and work well. My focus is on creating clean, maintainable systems that scale.</p>
-        <p>With hands-on experience in <strong>LLM integration and RAG pipelines</strong> at enterprise level (like Delta Electronics), I bridge the gap between traditional web development and modern AI capabilities. I believe great software is about solving real problems, not just writing code.</p>
-        <div class="stats-grid">
-          <div class="stat-box fade-in"><div class="stat-num">3+</div><div class="stat-label">Years Exp.</div></div>
-          <div class="stat-box fade-in"><div class="stat-num">2</div><div class="stat-label">Core Domains</div></div>
-          <div class="stat-box fade-in"><div class="stat-num">1</div><div class="stat-label">Award</div></div>
-          <div class="stat-box fade-in"><div class="stat-num">100%</div><div class="stat-label">Passion</div></div>
+        <p>With hands-on experience in <strong>LLM integration and RAG pipelines</strong> at enterprise level (Delta Electronics), I bridge the gap between traditional web development and modern AI capabilities.</p>
+        <p>I believe great software is about solving real problems, not just writing code. Currently building InfoSec products with AI integration at <strong>Web-Secure</strong>.</p>
+        <div class="kpi-grid">
+          <div class="kpi fi"><div class="kpi-n">3+</div><div class="kpi-l">Years Exp.</div></div>
+          <div class="kpi fi"><div class="kpi-n">2</div><div class="kpi-l">Companies</div></div>
+          <div class="kpi fi"><div class="kpi-n">1</div><div class="kpi-l">Award</div></div>
+          <div class="kpi fi"><div class="kpi-n">∞</div><div class="kpi-l">Curiosity</div></div>
         </div>
       </div>
-      <div class="about-right">
-        <div class="timeline">
-          <div class="timeline-item fade-in">
-            <div class="tl-year">2025–Now</div>
-            <div><div class="tl-title">Software Eng. @ Web-Secure</div><div class="tl-sub">InfoSec & AI Product Integration</div></div>
+      <div>
+        <div class="tl">
+          <div class="tl-item fi">
+            <div class="tl-yr">2025<br>Now</div>
+            <div><div class="tl-name">Software Eng. @ Web-Secure</div><div class="tl-desc">InfoSec products &amp; AI integration</div></div>
           </div>
-          <div class="timeline-item fade-in">
-            <div class="tl-year">2024–25</div>
-            <div><div class="tl-title">Intern @ Delta Electronics</div><div class="tl-sub">Enterprise Tooling & RAG Dev</div></div>
+          <div class="tl-item fi">
+            <div class="tl-yr">2024<br>2025</div>
+            <div><div class="tl-name">Intern @ Delta Electronics</div><div class="tl-desc">Enterprise tooling &amp; RAG systems</div></div>
           </div>
-          <div class="timeline-item fade-in">
-            <div class="tl-year">Ongoing</div>
-            <div><div class="tl-title">Tech Exploration</div><div class="tl-sub">LLM, RAG, Prompt Engineering</div></div>
+          <div class="tl-item fi">
+            <div class="tl-yr">2022<br>2023</div>
+            <div><div class="tl-name">Smart Cooking Assistant</div><div class="tl-desc">Merit Award — NLP &amp; Voice AI</div></div>
+          </div>
+          <div class="tl-item fi">
+            <div class="tl-yr">Always</div>
+            <div><div class="tl-name">Tech Exploration</div><div class="tl-desc">LLM research, open-source, side projects</div></div>
           </div>
         </div>
       </div>
@@ -448,27 +465,24 @@ footer{border-top:1px solid var(--border);padding:32px 0;display:flex;flex-direc
   </div>
 </section>
 
-<!-- 聯絡方式 -->
+<!-- CONTACT -->
 <section id="contact">
-  <div class="container">
-    <div class="contact-inner">
-      <div class="contact-label">Let's connect</div>
-      <div class="contact-heading">Ready to build<br>something <span>great?</span></div>
-      <div class="contact-sub">Open to full-time roles, freelance projects, and interesting collaborations.</div>
-      <div class="contact-links">
-        <!-- ✏️ 請把以下 mailto 換成你的 Email -->
-        <a href="mailto:your@email.com" class="contact-link">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+  <div class="wrap">
+    <div class="contact-box fi">
+      <div class="ct-label">Let's connect</div>
+      <div class="ct-head">Ready to build<br>something <em>great?</em></div>
+      <div class="ct-sub">Open to full-time roles, freelance projects,<br>and interesting collaborations.</div>
+      <div class="ct-links">
+        <a href="mailto:your@email.com" class="ct-link">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           Email Me
         </a>
-        <!-- ✏️ 請把以下網址換成你的 GitHub 網址 -->
-        <a href="https://github.com/jim408401" target="_blank" class="contact-link">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+        <a href="https://github.com/jim408401" target="_blank" rel="noopener noreferrer" class="ct-link">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
-        <!-- ✏️ 請把以下網址換成你的 LinkedIn 網址 -->
-        <a href="https://linkedin.com/in/" target="_blank" class="contact-link">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+        <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" class="ct-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           LinkedIn
         </a>
       </div>
@@ -476,66 +490,84 @@ footer{border-top:1px solid var(--border);padding:32px 0;display:flex;flex-direc
   </div>
 </section>
 
-<div class="container">
-  <footer>
-    <div class="footer-copy">© 2025 Jim. All rights reserved.</div>
-    <div class="footer-heart">Designed &amp; built with <span>♥</span> and lots of coffee.</div>
-  </footer>
-</div>
+<div class="wrap"><footer>
+  <div class="ft-copy">© 2025 Jim. All rights reserved.</div>
+  <div class="ft-made">Built with <span>♥</span> &amp; lots of coffee.</div>
+</footer></div>
 
 <script>
-  // 自定義游標邏輯
-  if (window.innerWidth > 768) {
-    const cursor = document.getElementById('cursor');
-    const trail = document.getElementById('trail');
-    let mx = 0, my = 0, tx = 0, ty = 0;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
-    });
-
-    setInterval(() => {
-      tx += (mx - tx) * 0.12;
-      ty += (my - ty) * 0.12;
-      trail.style.left = tx + 'px';
-      trail.style.top = ty + 'px';
-    }, 16);
-
-    document.querySelectorAll('a, button, .project-item, .job-item').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '6px';
-        cursor.style.height = '6px';
-        trail.style.width = '60px';
-        trail.style.height = '60px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        trail.style.width = '40px';
-        trail.style.height = '40px';
-      });
-    });
-  }
-
-  // 滾動顯示動畫
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+/* ── CURSOR & AMBIENT GLOW ── */
+if(window.innerWidth>768){
+  const c=document.getElementById('cur'), r=document.getElementById('cur-ring'), glow=document.getElementById('ambientGlow');
+  let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
+  
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    c.style.left=mx+'px'; c.style.top=my+'px';
+    glow.style.left=mx+'px'; glow.style.top=my+'px';
   });
+  
+  function animRing(){
+    rx+=(mx-rx)*.15; ry+=(my-ry)*.15;
+    r.style.left=rx+'px'; r.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  
+  document.querySelectorAll('a, button, .exp-card, .xp-item, .work-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>r.classList.add('hovered'));
+    el.addEventListener('mouseleave',()=>r.classList.remove('hovered'));
+  });
+
+  /* ── 3D TILT EFFECT FOR TERMINAL CARD ── */
+  const termCard = document.getElementById('termCard');
+  termCard.addEventListener('mousemove', (e) => {
+    const rect = termCard.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg tilt
+    const rotateY = ((x - centerX) / centerX) * 6;
+    termCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+  termCard.addEventListener('mouseleave', () => {
+    termCard.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+  });
+}
+
+/* ── TERMINAL BOOT-UP SEQUENCE ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const termLines = document.querySelectorAll('.term-line');
+  termLines.forEach((line, index) => {
+    setTimeout(() => {
+      line.style.transition = "opacity 0.1s ease, transform 0.1s ease";
+      line.style.opacity = "1";
+      line.style.transform = "translateX(0)";
+    }, 1200 + (index * 80)); // Starts typing after hero animation finishes
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
+},{threshold:.08});
+document.querySelectorAll('.fi').forEach(el=>io.observe(el));
+
+/* ── SKILL BARS ── */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-fill').forEach(b=>{
+        b.style.setProperty('--w',(b.dataset.w/100));
+        b.classList.add('anim');
+        b.style.transform='scaleX('+b.dataset.w/100+')';
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.exp-card').forEach(el=>barObs.observe(el));
 </script>
 </body>
 </html>
