@@ -1,288 +1,477 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jim | Full-Stack & AI Engineer</title>
-    <!-- 引入高質感字體 Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #FAFAFA;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --card-bg: #FFFFFF;
-            --border-color: #E5E7EB;
-            --accent-color: #111827;
-            --tag-bg: #F3F4F6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jim | Full-Stack & AI Engineer</title>
+<!-- 引入高質感字體 -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* 基礎重置與變數 */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0A; --surface:#111111; --surface2:#1A1A1A;
+  --border:#252525; --border2:#333;
+  --text:#F0EDE6; --muted:#888; --subtle:#555;
+  --accent:#E8FF3C; --accent2:#3CFFC8; /* 螢光黃與科技青 */
+}
+html{scroll-behavior:smooth}
+/* 隱藏預設游標，使用自定義游標 */
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;cursor:none}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+/* 自定義游標特效 (手機端自動隱藏) */
+@media (min-width: 769px) {
+  .cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s ease,width 0.2s,height 0.2s}
+  .cursor-trail{position:fixed;width:40px;height:40px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.4;transition:all 0.15s ease}
+}
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-trail { display: none; }
+}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 80px 20px;
-            animation: fadeIn 1s ease-out forwards;
-        }
+/* 佈局容器 */
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (min-width: 769px) { .container{padding:0 40px} }
 
-        /* 標題區塊 */
-        header {
-            margin-bottom: 60px;
-            border-bottom: 2px solid var(--text-primary);
-            padding-bottom: 30px;
-        }
+/* 導覽列 */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,10,10,0.7);border-bottom:1px solid var(--border)}
+@media (min-width: 769px) { nav{padding:20px 40px} }
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:24px}
+@media (max-width: 600px) { .nav-links { display: none; } /* 手機版簡化導覽列 */ }
+.nav-links a{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin: 0 0 10px 0;
-        }
+/* 首頁 Hero 區塊 */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;width:100%}
+@media (min-width: 900px) { .hero-grid{grid-template-columns:1.2fr 1fr;} }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            margin: 0;
-        }
+.status-dot{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px}
+.dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(60,255,200,0.4)}50%{opacity:0.7;box-shadow:0 0 0 8px rgba(60,255,200,0)}}
 
-        /* 段落標題 */
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 60px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-        }
-        
-        h2::before {
-            content: "✦";
-            margin-right: 10px;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-        }
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.04em;margin-bottom:24px}
+h1 .accent-text{color:var(--accent)}
+.hero-desc{font-size:1rem;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:40px}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap: wrap;}
+.btn-primary{background:var(--accent);color:#000;padding:14px 28px;font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all 0.2s;border:none;cursor:pointer}
+@media (min-width: 769px) { .btn-primary { cursor: none; } }
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px)}
+.btn-secondary{color:var(--text);font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--border2);padding:14px 24px;border-radius:4px;transition:all 0.2s}
+.btn-secondary:hover{background:var(--surface2);border-color:var(--muted)}
 
-        /* 網格卡片佈局 (Bento UI) */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
+/* 終端機卡片 */
+.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden;width: 100%;}
+@media (min-width: 769px) { .hero-card{padding:32px;} }
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.terminal-bar{display:flex;gap:8px;margin-bottom:24px}
+.terminal-dot{width:10px;height:10px;border-radius:50%}
+.t1{background:#FF5F56}.t2{background:#FFBD2E}.t3{background:#27C93F}
+.terminal-code{font-family:'DM Mono',monospace;font-size:0.75rem;line-height:1.8;color:var(--muted); overflow-x: auto;}
+@media (min-width: 769px) { .terminal-code{font-size:0.85rem;line-height:2;} }
+.terminal-code .cmd{color:var(--accent2)}
+.terminal-code .str{color:var(--accent)}
+.terminal-code .key{color:#B594F0}
+.terminal-code .val{color:#7FDBCA}
+.terminal-code .cmt{color:var(--subtle);font-style:italic}
 
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+/* 下滑提示 */
+.scroll-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--subtle);letter-spacing:0.15em;text-transform:uppercase}
+@media (max-height: 700px) { .scroll-hint { display: none; } }
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--subtle),transparent);animation:scrollAnim 2s ease infinite}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-        /* 卡片設計 */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
+/* 雜訊背景 */
+.bg-noise{position:fixed;inset:0;pointer-events:none;opacity:0.03;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")}
 
-        .card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transform: translateY(-5px);
-        }
+/* 區塊標題 */
+section{padding:80px 0;position:relative;z-index:1}
+@media (min-width: 769px) { section{padding:120px 0} }
+.section-header{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.section-num{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.1em}
+h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.03em}
+.section-line{flex:1;height:1px;background:var(--border);margin-left:16px;align-self:center}
 
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
+/* 技能區塊 (Bento Grid) */
+.expertise-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border-radius:16px;overflow:hidden}
+@media (min-width: 769px) { .expertise-grid{grid-template-columns:1fr 1fr;} }
+.expertise-card{background:var(--surface);padding:32px;transition:background 0.3s}
+@media (min-width: 769px) { .expertise-card{padding:40px;} }
+.expertise-card:hover{background:var(--surface2)}
+.exp-icon{font-size:2rem;margin-bottom:20px;line-height:1}
+.exp-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:12px}
+.exp-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.skill-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.skill-item{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem}
+.skill-bar{width:100px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;border-radius:2px;background:var(--accent)}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--accent);background:rgba(232,255,60,0.08);border:1px solid rgba(232,255,60,0.2);padding:4px 10px;border-radius:3px;letter-spacing:0.05em}
+.tag.teal{color:var(--accent2);background:rgba(60,255,200,0.08);border-color:rgba(60,255,200,0.2)}
 
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
+/* 專案區塊 */
+.projects-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.project-item{background:var(--bg);padding:32px;display:grid;grid-template-columns:1fr;gap:20px;align-items:start;transition:background 0.3s;cursor:pointer}
+@media (min-width: 769px) { 
+  .project-item{grid-template-columns:auto 1fr auto;gap:40px;padding:40px; cursor:none;} 
+}
+.project-item:hover{background:var(--surface)}
+.project-item:hover .project-arrow{opacity:1;transform:translate(4px,-4px)}
+.project-num{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--subtle);padding-top:4px}
+.project-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.project-year{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted)}
+.project-badge{font-family:'DM Mono',monospace;font-size:0.65rem;background:rgba(255,75,75,0.1);color:#FF8080;border:1px solid rgba(255,75,75,0.3);padding:3px 10px;border-radius:3px}
+.project-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:10px}
+.project-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;max-width:600px;margin-bottom:20px}
+.project-stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack-tag{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--subtle);border:1px solid var(--border);padding:4px 10px;border-radius:3px}
+.project-arrow{font-size:1.5rem;color:var(--accent);opacity:0;transition:all 0.2s;padding-top:4px; display: none;}
+@media (min-width: 769px) { .project-arrow{display: block;} }
 
-        /* 列表樣式 */
-        ul {
-            padding-left: 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
+/* 關於我與數據統計 */
+.about-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+@media (min-width: 900px) { .about-grid{grid-template-columns:1fr 1fr;gap:60px;} }
+.about-text p{font-size:0.95rem;color:var(--muted);line-height:1.9;margin-bottom:20px}
+.about-text strong{color:var(--text)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-top:32px}
+.stat-box{background:var(--surface);padding:24px;text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1}
+.stat-label{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
+.timeline{display:flex;flex-direction:column}
+.timeline-item{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--border)}
+@media (min-width: 769px) { .timeline-item{grid-template-columns:100px 1fr;gap:24px;} }
+.timeline-item:last-child{border-bottom:none}
+.tl-year{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);padding-top:4px}
+.tl-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:4px}
+.tl-sub{font-size:0.85rem;color:var(--muted)}
 
-        ul li {
-            margin-bottom: 8px;
-        }
+/* 聯絡區塊 */
+.contact-inner{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 20px;text-align:center;position:relative;overflow:hidden}
+@media (min-width: 769px) { .contact-inner{padding:80px;} }
+.contact-inner::before{content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,255,60,0.05),transparent 70%)}
+.contact-label{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px}
+.contact-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.1}
+.contact-heading span{color:var(--accent)}
+.contact-sub{font-size:0.95rem;color:var(--muted);margin-bottom:48px;line-height:1.7}
+.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.contact-link{display:flex;align-items:center;gap:10px;border:1px solid var(--border2);padding:14px 24px;border-radius:8px;text-decoration:none;color:var(--text);font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.05em;transition:all 0.2s}
+.contact-link:hover{background:var(--surface2);border-color:var(--muted);transform:translateY(-2px)}
+.contact-link svg{width:16px;height:16px;fill:currentColor}
 
-        /* 標籤設計 */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: var(--tag-bg);
-            color: var(--text-primary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        /* 專案區塊特製 */
-        .project-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .project-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .year {
-            font-family: monospace;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .award {
-            background: #FEF3C7;
-            color: #92400E;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .link-btn {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 20px;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s ease;
-            width: fit-content;
-        }
-
-        .link-btn::after {
-            content: "→";
-            margin-left: 5px;
-            transition: transform 0.2s ease;
-        }
-
-        .link-btn:hover {
-            border-bottom: 1px solid var(--accent-color);
-        }
-
-        .link-btn:hover::after {
-            transform: translateX(4px);
-        }
-
-        /* 進場動畫 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+/* 頁尾 */
+footer{border-top:1px solid var(--border);padding:32px 0;display:flex;flex-direction:column;gap:16px;justify-content:space-between;align-items:center}
+@media (min-width: 600px) { footer{flex-direction:row;} }
+.footer-copy{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--subtle)}
+.footer-heart{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--subtle)}
+.footer-heart span{color:var(--accent)}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- 標題區 -->
-        <header>
-            <h1>Jim.</h1>
-            <p class="subtitle">Full-Stack Developer & AI Systems Engineer</p>
-        </header>
+<div class="bg-noise"></div>
+<!-- 自定義游標 -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="trail"></div>
 
-        <!-- 專長區 (Expertise) -->
-        <h2>Expertise</h2>
-        <div class="grid">
-            <!-- 專長卡片 1 -->
-            <div class="card">
-                <h3>Full-stack Development</h3>
-                <p>Design and develop scalable web applications with robust system architecture and secure API integration.</p>
-                <ul>
-                    <li><strong>Frontend:</strong> React, Vue.js</li>
-                    <li><strong>Backend:</strong> Node.js, Express, C#</li>
-                    <li><strong>Database:</strong> SQL & NoSQL optimization</li>
-                    <li><strong>System:</strong> Scalable architectures & API design</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">#JavaScript</span>
-                    <span class="tag">#ReactJS</span>
-                    <span class="tag">#VueJS</span>
-                    <span class="tag">#Node.js</span>
-                    <span class="tag">#C#</span>
-                </div>
-            </div>
+<!-- 導覽列 -->
+<nav>
+  <div class="nav-logo">jim<span>.</span></div>
+  <div class="nav-links">
+    <a href="#expertise">Expertise</a>
+    <a href="#works">Works</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-            <!-- 專長卡片 2 -->
-            <div class="card">
-                <h3>LLM Chatbot Development</h3>
-                <p>Develop production-level AI chatbot systems with Retrieval-Augmented Generation (RAG).</p>
-                <ul>
-                    <li>End-to-end RAG pipelines</li>
-                    <li>Prompt engineering strategies</li>
-                    <li>LLM integration via FastAPI</li>
-                    <li>Retrieval performance optimization</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">#Python</span>
-                    <span class="tag">#LLM</span>
-                    <span class="tag">#AI</span>
-                    <span class="tag">#NLP</span>
-                </div>
-            </div>
+<!-- Hero 區塊 -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="status-dot">
+          <span class="dot"></span>
+          Available for opportunities
         </div>
-
-        <!-- 專案區 (Selected Works) -->
-        <h2>Selected Works</h2>
-        <div class="grid">
-            <!-- 專案卡片 1 -->
-            <div class="card project-card">
-                <div>
-                    <div class="project-meta">
-                        <span class="year">2024 - 2025</span>
-                    </div>
-                    <h3>Enterprise RAG Chatbot</h3>
-                    <p>A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. It supports file upload, vector storage, and semantic retrieval with reranking.</p>
-                </div>
-                <!-- 記得把 href 替換成你的專案連結或 GitHub repo 連結 -->
-                <a href="#" class="link-btn" target="_blank">前往查看 (View Project)</a>
-            </div>
-
-            <!-- 專案卡片 2 -->
-            <div class="card project-card">
-                <div>
-                    <div class="project-meta">
-                        <span class="year">2022 - 2023</span>
-                        <span class="award">🏆 Merit Award</span>
-                    </div>
-                    <h3>Smart Cooking Assistant</h3>
-                    <p>Implemented voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</p>
-                </div>
-                <!-- 記得把 href 替換成你的專案連結或 GitHub repo 連結 -->
-                <a href="#" class="link-btn" target="_blank">前往查看 (View Project)</a>
-            </div>
+        <h1>
+          <span class="line1" style="display:block">Full-Stack</span>
+          <span class="line1" style="display:block">&amp; <span class="accent-text">AI</span></span>
+          <span class="line1" style="display:block">Engineer</span>
+        </h1>
+        <p class="hero-desc">Building scalable web systems and intelligent AI pipelines. Turning complex problems into clean, maintainable solutions.</p>
+        <div class="hero-actions">
+          <a href="#works" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-secondary">Get in Touch →</a>
         </div>
-        
+      </div>
+      <div class="hero-right">
+        <!-- 終端機卡片 -->
+        <div class="hero-card">
+          <div class="terminal-bar">
+            <div class="terminal-dot t1"></div>
+            <div class="terminal-dot t2"></div>
+            <div class="terminal-dot t3"></div>
+          </div>
+          <div class="terminal-code">
+            <div><span class="cmt">// jim.config.ts</span></div>
+            <div>&nbsp;</div>
+            <div><span class="key">const</span> <span class="val">engineer</span> = {</div>
+            <div>&nbsp;&nbsp;<span class="cmd">name</span>: <span class="str">"Jim"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cmd">role</span>: <span class="str">"Full-Stack &amp; AI Eng."</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cmd">stack</span>: [</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"React"</span>, <span class="str">"Vue.js"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Node.js"</span>, <span class="str">"Python"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"LangChain"</span>, <span class="str">"RAG"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"SQL/NoSQL"</span>, <span class="str">"C#"</span></div>
+            <div>&nbsp;&nbsp;],</div>
+            <div>&nbsp;&nbsp;<span class="cmd">status</span>: <span class="str">"open_to_work"</span></div>
+            <div>}</div>
+            <div>&nbsp;</div>
+            <div><span class="key">export default</span> <span class="val">engineer</span>;</div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 專長區塊 -->
+<section id="expertise">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01 /</span>
+      <h2>Expertise</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card fade-in">
+        <div class="exp-icon">⬡</div>
+        <div class="exp-title">Full-stack Development</div>
+        <div class="exp-desc">Design and develop scalable web applications with robust system architecture and secure API integration.</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">React / Vue.js</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Node.js / Express</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">C# / .NET</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">SQL &amp; NoSQL</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        </div>
+        <div class="exp-tags">
+          <span class="tag">#JavaScript</span>
+          <span class="tag">#ReactJS</span>
+          <span class="tag">#VueJS</span>
+          <span class="tag">#Node.js</span>
+          <span class="tag">#C#</span>
+        </div>
+      </div>
+      <div class="expertise-card fade-in">
+        <div class="exp-icon">◈</div>
+        <div class="exp-title">LLM &amp; AI Systems</div>
+        <div class="exp-desc">Develop production-level AI chatbot systems with Retrieval-Augmented Generation (RAG) pipelines and LLM integrations.</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">LangChain / RAG</span><div class="skill-bar"><div class="skill-fill" style="width:88%;background:var(--accent2)"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Prompt Engineering</span><div class="skill-bar"><div class="skill-fill" style="width:92%;background:var(--accent2)"></div></div></div>
+          <div class="skill-item"><span class="skill-name">FastAPI / Python</span><div class="skill-bar"><div class="skill-fill" style="width:82%;background:var(--accent2)"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Vector Databases</span><div class="skill-bar"><div class="skill-fill" style="width:78%;background:var(--accent2)"></div></div></div>
+        </div>
+        <div class="exp-tags">
+          <span class="tag teal">#Python</span>
+          <span class="tag teal">#LLM</span>
+          <span class="tag teal">#RAG</span>
+          <span class="tag teal">#NLP</span>
+          <span class="tag teal">#FastAPI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 作品區塊 -->
+<section id="works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02 /</span>
+      <h2>Selected Works</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list">
+      <!-- 點擊專案可以導向連結，請替換 href -->
+      <a href="你的專案連結放這裡" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="project-item fade-in">
+          <div class="project-num">001</div>
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-year">2024 — 2025</span>
+            </div>
+            <div class="project-title">Enterprise RAG Chatbot</div>
+            <div class="project-desc">A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. Supports file upload, vector storage, and semantic retrieval with reranking.</div>
+            <div class="project-stack">
+              <span class="stack-tag">LangChain</span>
+              <span class="stack-tag">Ollama</span>
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">FastAPI</span>
+              <span class="stack-tag">RAG</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+      
+      <a href="你的專案連結放這裡" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="project-item fade-in">
+          <div class="project-num">002</div>
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-year">2022 — 2023</span>
+              <span class="project-badge">🏆 Merit Award</span>
+            </div>
+            <div class="project-title">Smart Cooking Assistant</div>
+            <div class="project-desc">Voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</div>
+            <div class="project-stack">
+              <span class="stack-tag">Speech-to-Text</span>
+              <span class="stack-tag">NLP</span>
+              <span class="stack-tag">Intent Recognition</span>
+              <span class="stack-tag">Python</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 關於我 -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03 /</span>
+      <h2>About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>Full-Stack Developer and AI Systems Engineer</strong> who loves building things that work — and work well. My focus is on creating clean, maintainable systems that scale.</p>
+        <p>With hands-on experience in <strong>LLM integration and RAG pipelines</strong>, I bridge the gap between traditional web development and modern AI capabilities. I believe great software is about solving real problems, not just writing code.</p>
+        <div class="stats-grid">
+          <div class="stat-box fade-in"><div class="stat-num">3+</div><div class="stat-label">Years Exp.</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">2</div><div class="stat-label">Core Domains</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">1</div><div class="stat-label">Award</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">100%</div><div class="stat-label">Passion</div></div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="timeline">
+          <div class="timeline-item fade-in">
+            <div class="tl-year">2024–25</div>
+            <div><div class="tl-title">Enterprise RAG Chatbot</div><div class="tl-sub">AI / Full-stack — Production LLM system</div></div>
+          </div>
+          <div class="timeline-item fade-in">
+            <div class="tl-year">2022–23</div>
+            <div><div class="tl-title">Smart Cooking Assistant</div><div class="tl-sub">NLP / Voice — Merit Award recipient</div></div>
+          </div>
+          <div class="timeline-item fade-in">
+            <div class="tl-year">Ongoing</div>
+            <div><div class="tl-title">Tech Exploration</div><div class="tl-sub">LLM, RAG, Prompt Engineering</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 聯絡方式 -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-label">Let's connect</div>
+      <div class="contact-heading">Ready to build<br>something <span>great?</span></div>
+      <div class="contact-sub">Open to full-time roles, freelance projects, and interesting collaborations.</div>
+      <div class="contact-links">
+        <!-- ✏️ 請把以下 mailto 換成你的 Email -->
+        <a href="mailto:your@email.com" class="contact-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+          Email Me
+        </a>
+        <!-- ✏️ 請把以下網址換成你的 GitHub 網址 -->
+        <a href="https://github.com/jim408401" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+          GitHub
+        </a>
+        <!-- ✏️ 請把以下網址換成你的 LinkedIn 網址 -->
+        <a href="https://linkedin.com/in/" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <footer>
+    <div class="footer-copy">© 2025 Jim. All rights reserved.</div>
+    <div class="footer-heart">Designed &amp; built with <span>♥</span> and lots of coffee.</div>
+  </footer>
+</div>
+
+<script>
+  // 1. 自定義游標邏輯 (僅在桌面版執行)
+  if (window.innerWidth > 768) {
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('trail');
+    let mx = 0, my = 0, tx = 0, ty = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    setInterval(() => {
+      tx += (mx - tx) * 0.12;
+      ty += (my - ty) * 0.12;
+      trail.style.left = tx + 'px';
+      trail.style.top = ty + 'px';
+    }, 16);
+
+    // 游標懸停放大特效
+    document.querySelectorAll('a, button, .project-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '6px';
+        cursor.style.height = '6px';
+        trail.style.width = '60px';
+        trail.style.height = '60px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        trail.style.width = '40px';
+        trail.style.height = '40px';
+      });
+    });
+  }
+
+  // 2. 滾動顯示動畫 (Scroll Reveal)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
