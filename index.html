@@ -3,172 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jim | Tech Portfolio</title>
+    <title>Jim | Full-Stack & AI Engineer</title>
+    <!-- 引入高質感字體 Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* 基礎設定：深色背景與等寬科技字體 */
         :root {
-            --bg-color: #0a192f;      /* 深邃藍底色 */
-            --text-main: #ccd6f6;     /* 主文字色 */
-            --text-dark: #8892b0;     /* 次文字色 */
-            --neon-color: #64ffda;    /* 科技青色 */
+            --bg-color: #FAFAFA;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --accent-color: #111827;
+            --tag-bg: #F3F4F6;
         }
-        
+
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace; /* 終端機字體 */
+            color: var(--text-primary);
             margin: 0;
             padding: 0;
-            /* 科技感網格背景 */
-            background-image: 
-                linear-gradient(rgba(100, 255, 218, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 255, 218, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 100px 20px;
+            padding: 80px 20px;
+            animation: fadeIn 1s ease-out forwards;
         }
 
-        /* 終端機打字效果區塊 */
-        .terminal {
-            font-size: 1.2rem;
-            color: var(--neon-color);
-            margin-bottom: 20px;
+        /* 標題區塊 */
+        header {
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 30px;
         }
 
         h1 {
-            font-size: 4rem;
-            margin: 0 0 20px 0;
-            color: var(--text-main);
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0 0 10px 0;
         }
 
-        p.subtitle {
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            line-height: 1.6;
-            max-width: 600px;
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin: 0;
         }
 
-        /* 技能標籤 */
-        .skills {
+        /* 段落標題 */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 60px;
+            margin-bottom: 30px;
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: "✦";
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
         }
 
-        .skill-tag {
-            border: 1px solid var(--neon-color);
-            color: var(--neon-color);
-            padding: 8px 15px;
-            border-radius: 4px;
+        /* 網格卡片佈局 (Bento UI) */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* 卡片設計 */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* 列表樣式 */
+        ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background: rgba(100, 255, 218, 0.05);
+            margin-bottom: 20px;
         }
 
-        .skill-tag:hover {
-            background: var(--neon-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 10px var(--neon-color);
-            cursor: pointer;
+        ul li {
+            margin-bottom: 8px;
         }
 
-        /* 科技感按鈕 */
-        .btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 15px 30px;
-            color: var(--neon-color);
-            border: 2px solid var(--neon-color);
-            text-decoration: none;
+        /* 標籤設計 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--text-primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        /* 專案區塊特製 */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .year {
+            font-family: monospace;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .award {
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 4px 10px;
             border-radius: 4px;
-            transition: all 0.3s ease;
-            font-weight: bold;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        .btn:hover {
-            background: rgba(100, 255, 218, 0.1);
-            box-shadow: 0 0 15px var(--neon-color);
-            transform: translateY(-3px);
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+            width: fit-content;
         }
 
-        /* 閃爍游標 */
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 1.2rem;
-            background-color: var(--neon-color);
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
+        .link-btn::after {
+            content: "→";
+            margin-left: 5px;
+            transition: transform 0.2s ease;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .link-btn:hover {
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .link-btn:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* 進場動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 打字機動畫區 -->
-        <div class="terminal">
-            <span>> </span><span id="typewriter"></span><span class="cursor"></span>
+        <!-- 標題區 -->
+        <header>
+            <h1>Jim.</h1>
+            <p class="subtitle">Full-Stack Developer & AI Systems Engineer</p>
+        </header>
+
+        <!-- 專長區 (Expertise) -->
+        <h2>Expertise</h2>
+        <div class="grid">
+            <!-- 專長卡片 1 -->
+            <div class="card">
+                <h3>Full-stack Development</h3>
+                <p>Design and develop scalable web applications with robust system architecture and secure API integration.</p>
+                <ul>
+                    <li><strong>Frontend:</strong> React, Vue.js</li>
+                    <li><strong>Backend:</strong> Node.js, Express, C#</li>
+                    <li><strong>Database:</strong> SQL & NoSQL optimization</li>
+                    <li><strong>System:</strong> Scalable architectures & API design</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">#JavaScript</span>
+                    <span class="tag">#ReactJS</span>
+                    <span class="tag">#VueJS</span>
+                    <span class="tag">#Node.js</span>
+                    <span class="tag">#C#</span>
+                </div>
+            </div>
+
+            <!-- 專長卡片 2 -->
+            <div class="card">
+                <h3>LLM Chatbot Development</h3>
+                <p>Develop production-level AI chatbot systems with Retrieval-Augmented Generation (RAG).</p>
+                <ul>
+                    <li>End-to-end RAG pipelines</li>
+                    <li>Prompt engineering strategies</li>
+                    <li>LLM integration via FastAPI</li>
+                    <li>Retrieval performance optimization</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">#Python</span>
+                    <span class="tag">#LLM</span>
+                    <span class="tag">#AI</span>
+                    <span class="tag">#NLP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 專案區 (Selected Works) -->
+        <h2>Selected Works</h2>
+        <div class="grid">
+            <!-- 專案卡片 1 -->
+            <div class="card project-card">
+                <div>
+                    <div class="project-meta">
+                        <span class="year">2024 - 2025</span>
+                    </div>
+                    <h3>Enterprise RAG Chatbot</h3>
+                    <p>A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. It supports file upload, vector storage, and semantic retrieval with reranking.</p>
+                </div>
+                <!-- 記得把 href 替換成你的專案連結或 GitHub repo 連結 -->
+                <a href="#" class="link-btn" target="_blank">前往查看 (View Project)</a>
+            </div>
+
+            <!-- 專案卡片 2 -->
+            <div class="card project-card">
+                <div>
+                    <div class="project-meta">
+                        <span class="year">2022 - 2023</span>
+                        <span class="award">🏆 Merit Award</span>
+                    </div>
+                    <h3>Smart Cooking Assistant</h3>
+                    <p>Implemented voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</p>
+                </div>
+                <!-- 記得把 href 替換成你的專案連結或 GitHub repo 連結 -->
+                <a href="#" class="link-btn" target="_blank">前往查看 (View Project)</a>
+            </div>
         </div>
         
-        <h1>Jim.</h1>
-        <p class="subtitle">
-            歡迎來到我的虛擬空間。<br>
-            我專注於探索新技術、構建高效能的應用程式，並致力於打造迷人的數位體驗。
-        </p>
-
-        <!-- 你的技能樹 (可隨意更改) -->
-        <div class="skills">
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">AI Tools</span>
-            <span class="skill-tag">Web Development</span>
-            <span class="skill-tag">GitHub</span>
-        </div>
-
-        <a href="https://github.com/jim408401" class="btn">查看我的 GitHub >></a>
     </div>
-
-    <!-- JavaScript 負責打字機動畫 -->
-    <script>
-        const textArray = ["System.out.println('Hello World');", "Initiating profile...", "Welcome to Jim's Website."];
-        let textIndex = 0;
-        let charIndex = 0;
-        const speed = 100; // 打字速度
-        const delayBetweenTexts = 2000; // 句子之間的停頓
-
-        function typeWriter() {
-            if (charIndex < textArray[textIndex].length) {
-                document.getElementById("typewriter").innerHTML += textArray[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, speed);
-            } else {
-                setTimeout(eraseText, delayBetweenTexts);
-            }
-        }
-
-        function eraseText() {
-            if (charIndex > 0) {
-                document.getElementById("typewriter").innerHTML = textArray[textIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(eraseText, speed / 2);
-            } else {
-                textIndex++;
-                if (textIndex >= textArray.length) textIndex = 0;
-                setTimeout(typeWriter, speed);
-            }
-        }
-
-        // 啟動動畫
-        window.onload = typeWriter;
-    </script>
 </body>
 </html>
