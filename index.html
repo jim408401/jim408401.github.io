@@ -13,13 +13,19 @@
 <!-- Ambient Mouse Glow -->
 <div class="ambient-glow" id="ambientGlow"></div>
 
+<!-- Particle Canvas -->
+<canvas id="particleCanvas"></canvas>
+
 <div id="noise"></div>
 <div id="grid"></div>
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
+<!-- Page Transition Overlay -->
+<div class="page-overlay" id="pageOverlay"></div>
+
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <div class="nav-logo">Jim Wu<em>.</em></div>
   <div class="nav-links">
     <a href="#about">About</a>
@@ -32,19 +38,19 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-letter"></div>
+  <div class="hero-bg-letter">E</div>
   <div class="wrap">
     <div class="hero-inner">
-      <div>
+      <div class="hero-text">
         <div class="pill hero-reveal"><span class="pill-dot"></span>Available for cool projects</div>
         <h1 class="hero-reveal">
           <span class="thin">Full-Stack &amp; AI</span>
-          <span class="glitch-text">ENGINEER</span>
+          <span class="glitch-text" data-text="ENGINEER">ENGINEER</span>
         </h1>
         <p class="hero-sub hero-reveal">I build things — web apps, AI tools, and systems that make work smarter and simpler.</p>
         <div class="hero-btns hero-reveal">
           <a href="#projects" class="btn-gold">View My Projects</a>
-          <a href="#contact" class="btn-outline">Get in Touch →</a>
+          <a href="#contact" class="btn-outline">Contact →</a>
         </div>
       </div>
       <div class="term-wrapper">
@@ -60,16 +66,17 @@
             <div class="term-line">&nbsp;</div>
             <div class="term-line"><span class="c-key">const</span> <span class="c-val">jim</span> = {</div>
             <div class="term-line">&nbsp;&nbsp;<span class="c-prop">name</span>: <span class="c-str">"Jim Wu"</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">role</span>: <span class="c-str">"Full-Stack &amp; AI Eng."</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">stack</span>: [</div>
-                        <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Python"</span>, <span class="c-str">"C#"</span>, <span class="c-str">"ASP.NET"</span>, <span class="c-str">"SQL"</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">role</span>: <span class="c-str">"Full-Stack &amp; AI Engineer"</span>,</div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">stack</span>:[</div>
+            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Python"</span>, <span class="c-str">"C#"</span>, <span class="c-str">"ASP.NET"</span>, <span class="c-str">"SQL"</span>,</div>
             <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"React"</span>, <span class="c-str">"Vue.js"</span>, <span class="c-str">"Node.js"</span>,</div>
             <div class="term-line">&nbsp;&nbsp;],</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">status</span>: <span class="c-str">"open_to_work"</span> <span class="c-cmt">✓</span></div>
+            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">status</span>: <span class="c-str">"open_to_work"</span></div>
             <div class="term-line">};</div>
             <div class="term-line">&nbsp;</div>
             <div class="term-line"><span class="c-key">export default</span> <span class="c-val">jim</span>;</div>
           </div>
+          <div class="term-scanline"></div>
         </div>
       </div>
     </div>
@@ -87,35 +94,45 @@
     </div>
     <div class="about-grid">
       <div class="about-body">
-        <p>Hi, I’m Jim — a Software Engineer who enjoys building smart things. I work across <strong>full-stack development and AI</strong>, from creating clean user interfaces to building the intelligent systems behind them.</p>
-        <p>Over the past few years, I’ve turned ideas into real products — like a <strong>voice assistant powered by NLP</strong> and <strong>RAG-based tools</strong> that help teams find information faster. Right now, I’m focusing on <strong>LLM integrations and LangChain</strong> to automate workflows and make apps more useful and intuitive.</p>
-        <div class="kpi-grid">
-          <div class="kpi fi"><div class="kpi-n">1+</div><div class="kpi-l">Years Exp.</div></div>
-          <div class="kpi fi"><div class="kpi-n">2</div><div class="kpi-l">Companies</div></div>
-          <div class="kpi fi"><div class="kpi-n">1</div><div class="kpi-l">Award</div></div>
-          <div class="kpi fi"><div class="kpi-n">∞</div><div class="kpi-l">Curiosity</div></div>
-        </div>
+        <p class="fi">Hi, I'm Jim Wu. I'm a Software Engineer specializing in <strong>Full-stack development and AI applications</strong>. I have experience in building everything from award-winning voice assistants to high-concurrency enterprise security products.</p>
+        <p class="fi">I'm particularly passionate about <strong>LLM and AI Agent</strong>, having successfully integrated AI chatbot into core products to improve efficiency and user experience. My goal is always the same: to build robust, scalable systems that solve real-world problems through intelligent technology.</p>
       </div>
-      <div>
-        <div class="tl">
-          <div class="tl-item fi">
-            <div class="tl-yr">2025<br>Now</div>
-            <div><div class="tl-name">Software Eng. @ E-soft</div><div class="tl-desc">InfoSec products &amp; AI integration</div></div>
+        <div class="timeline-container fi">
+          <div class="timeline-item current fi">
+            <div class="tl-time">
+              <span class="year">2025</span>
+              <span class="year">Now</span>
+            </div>
+            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+            <div class="tl-content">
+              <h3 class="tl-title">Software Engineer</h3>
+              <p class="tl-sub">e-SOFT (曜祥網技)</p>
+              <span class="tl-badge">CURRENT</span>
+            </div>
           </div>
-          <div class="tl-item fi">
-            <div class="tl-yr">2024<br>2025</div>
-            <div><div class="tl-name">Intern @ Delta Electronics</div><div class="tl-desc">Enterprise tooling &amp; RAG systems</div></div>
+          <div class="timeline-item fi">
+            <div class="tl-time">
+              <span class="year">2024</span>
+              <span class="year">2025</span>
+            </div>
+            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+            <div class="tl-content">
+              <h3 class="tl-title">Software Engineer Intern</h3>
+              <p class="tl-sub">Delta Electronics (台達電子)</p>
+            </div>
           </div>
-          <div class="tl-item fi">
-            <div class="tl-yr">2022<br>2023</div>
-            <div><div class="tl-name">Smart Cooking Assistant</div><div class="tl-desc">Merit Award — NLP &amp; Voice AI</div></div>
-          </div>
-          <div class="tl-item fi">
-            <div class="tl-yr">Always</div>
-            <div><div class="tl-name">Tech Exploration</div><div class="tl-desc">LLM research, open-source, side projects</div></div>
+          <div class="timeline-item fi">
+            <div class="tl-time">
+              <span class="year">2022</span>
+              <span class="year">2023</span>
+            </div>
+            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+            <div class="tl-content">
+              <h3 class="tl-title">Smart Cooking Assistant</h3>
+              <span class="tl-badge award">INNOSERVE AWARD 2022</span>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </section>
@@ -137,19 +154,14 @@
         </div>
         <div class="xp-content">
           <div class="xp-role">Software Engineer</div>
-          <div class="xp-company">@ E-soft (曜祥網技)</div>
+          <div class="xp-company">@ e-SOFT (曜祥網技)</div>
           <ul class="xp-list-inner">
-            <li>Developed security system products with a focus on stability and performance.</li>
-            <li>Refactored system to a multi-threaded architecture for improved performance.</li>
-            <li>Integrated AI chatbot features into products using LLM and RAG architectures.</li>
+            <li>Developed and optimized enterprise-level security products, ensuring robust stability and high performance for corporate clients.</li>
+            <li>Integrated an AI chatbot into the company's core system, establishing comprehensive data preprocessing pipelines to ensure high-quality AI responses.</li>
+            <li>Architected a concurrent synchronization engine using C# and ASP.NET, transitioning from a sequential process to a multi-threaded model, boosting processing throughput by 300+%</li>
           </ul>
           <div class="chips">
-            <span class="chip">#C#</span>
-            <span class="chip">#ASP.NET</span>
-            <span class="chip">#SQL</span>
-            <span class="chip teal">#LLM</span>
-            <span class="chip teal">#RAG</span>
-            <span class="chip teal">#Ollama</span>
+            <span class="chip">#C#</span><span class="chip">#ASP.NET</span><span class="chip">#Docker</span><span class="chip">#SQL</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span>
           </div>
         </div>
       </div>
@@ -159,20 +171,15 @@
           <div class="xp-date">2024.07<br>— 2025.06</div>
         </div>
         <div class="xp-content">
-          <div class="xp-role">Software Intern</div>
+          <div class="xp-role">Software Engineer (Intern)</div>
           <div class="xp-company">@ Delta Electronics (台達電子)</div>
           <ul class="xp-list-inner">
-            <li>Developed and tested internal platform tooling to streamline engineering workflows.</li>
-            <li>Implemented a firewall network topology visualization tool.</li>
-            <li>Built a RAG-based Q&amp;A chatbot using LangChain, Ollama, Streamlit, and FastAPI.</li>
+            <li>Built a RAG-based Q&A chatbot for technical documentation leveraging LangChain, Ollama, Streamlit, and FastAPI, reducing manual search time by 30%.</li>
+            <li>Engineered an interactive network topology visualization system using D3.js and Node.js to help administrators analyze network architectures.</li>
+            <li>Developed and manually tested internal platform tools, ensuring system reliability and core functionality to streamline engineering workflows.</li>
           </ul>
           <div class="chips">
-            <span class="chip">#Python</span>
-            <span class="chip">#FastAPI</span>
-            <span class="chip teal">#LLM</span>
-            <span class="chip teal">#RAG</span>
-            <span class="chip teal">#LangChain</span>
-            <span class="chip teal">#Ollama</span>
+            <span class="chip">#Python</span><span class="chip">#FastAPI</span><span class="chip">#Node.js</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span><span class="chip teal">#LangChain</span>
           </div>
         </div>
       </div>
@@ -193,10 +200,10 @@
       <div class="exp-card fi">
         <div class="exp-icon-wrap">⬡</div>
         <div class="exp-name">Full-Stack Dev</div>
-        <div class="exp-blurb">Design and build scalable web applications with secure API integration and robust system architecture.</div>
+        <div class="exp-blurb">Designing and building scalable web applications, secure APIs, and robust backend architectures.</div>
         <div class="bars">
-          <div class="bar-row"><span class="bar-label">Python</span><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
-          <div class="bar-row"><span class="bar-label">C# / ASP.NET</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Python</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+          <div class="bar-row"><span class="bar-label">C# / ASP.NET</span><div class="bar-track"><div class="bar-fill" data-w="75"></div></div></div>
           <div class="bar-row"><span class="bar-label">React / Vue.js</span><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
           <div class="bar-row"><span class="bar-label">Node.js / Express</span><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
           <div class="bar-row"><span class="bar-label">SQL &amp; NoSQL</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
@@ -204,14 +211,14 @@
       </div>
       <div class="exp-card fi">
         <div class="exp-icon-wrap">◈</div>
-        <div class="exp-name">LLM &amp; AI Systems</div>
-        <div class="exp-blurb">Build AI chatbot systems with RAG (Retrieval-Augmented Generation) pipelines and LLM integration.</div>
+        <div class="exp-name">LLM &amp; AI Engineering</div>
+        <div class="exp-blurb">Developing RAG-driven AI systems and chatbots with seamless LLM integration and data preprocessing.</div>
         <div class="bars">
           <div class="bar-row"><span class="bar-label">LangChain / RAG</span><div class="bar-track"><div class="bar-fill teal" data-w="80"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Ollama / Hugging Face</span><div class="bar-track"><div class="bar-fill teal" data-w="90"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Prompt Engineering</span><div class="bar-track"><div class="bar-fill teal" data-w="92"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Ollama / Hugging Face</span><div class="bar-track"><div class="bar-fill teal" data-w="85"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Prompt Engineering</span><div class="bar-track"><div class="bar-fill teal" data-w="90"></div></div></div>
           <div class="bar-row"><span class="bar-label">Data Processing</span><div class="bar-track"><div class="bar-fill teal" data-w="85"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Vector Databases</span><div class="bar-track"><div class="bar-fill teal" data-w="75"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Vector Databases</span><div class="bar-track"><div class="bar-fill teal" data-w="70"></div></div></div>
         </div>
       </div>
     </div>
@@ -235,7 +242,7 @@
               <span class="work-year">2024 — 2025</span>
             </div>
             <div class="work-title">Q&A Chatbot</div>
-            <div class="work-desc">A document QA system based on the RAG framework, integrating LangChain and a locally hosted Ollama language model. Supports file upload, vector storage, and semantic retrieval with reranking.</div>
+            <div class="work-desc">A RAG-based chatbot, integrating LangChain with a locally hosted Ollama model to ensure data privacy. It features multi-format file upload, vector storage via ChromaDB, and advanced semantic retrieval with reranking.</div>
             <div class="chips">
               <span class="chip">#Python</span><span class="chip">#Streamlit</span><span class="chip">#FastAPI</span><span class="chip teal">#RAG</span><span class="chip teal">#Langchain</span><span class="chip teal">#Ollama</span><span class="chip teal">#ChromaDB</span>
             </div>
@@ -249,10 +256,10 @@
           <div>
             <div class="work-meta">
               <span class="work-year">2022 — 2023</span>
-              <span class="work-award">🏆 Merit Award</span>
+              <span class="work-award">🏆2022 InnoServe Award</span>
             </div>
             <div class="work-title">Smart Cooking Assistant</div>
-            <div class="work-desc">Voice-controlled cooking assistance using speech-to-text and intent recognition for recipe search, step-by-step guidance, and fridge inventory checks.</div>
+            <div class="work-desc">A voice-controlled cooking assistant utilizing speech-to-text and intent recognition to provide recipe search, step-by-step guidance, and smart inventory management.</div>
             <div class="chips">
               <span class="chip">#React</span><span class="chip">#Node.js</span><span class="chip">#Firebase</span><span class="chip">#STT</span><span class="chip">#TTS</span><span class="chip teal">#Azure LUIS (Language Understanding)</span>
             </div>
@@ -269,7 +276,7 @@
   <div class="wrap">
     <div class="contact-box fi">
       <div class="ct-label">Contact</div>
-      <div class="ct-head">Let’s build<br>something <em>impactful!</em></div>
+      <div class="ct-head">Let's build<br>something <em>impactful!</em></div>
       <div class="ct-links">
         <a href="mailto:your@email.com" class="ct-link">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -294,78 +301,239 @@
 </footer></div>
 
 <script>
+/* ── PAGE LOAD OVERLAY ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('pageOverlay').classList.add('fade-out');
+  }, 200);
+});
+
+/* ── PARTICLE SYSTEM ── */
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles =[];
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : H + 10;
+      this.size = Math.random() * 1.5 + 0.3;
+      this.speedY = -(Math.random() * 0.4 + 0.1);
+      this.speedX = (Math.random() - 0.5) * 0.2;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.color = Math.random() > 0.6 ? '#2DD4BF' : '#C9A84C';
+    }
+    update() {
+      this.y += this.speedY;
+      this.x += this.speedX;
+      this.opacity -= 0.0008;
+      if (this.y < -10 || this.opacity <= 0) this.reset(false);
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, this.opacity);
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
 /* ── CURSOR & AMBIENT GLOW ── */
-if(window.innerWidth>768){
-  const c=document.getElementById('cur'), r=document.getElementById('cur-ring'), glow=document.getElementById('ambientGlow');
-  let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
-  
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX; my=e.clientY;
-    c.style.left=mx+'px'; c.style.top=my+'px';
-    glow.style.left=mx+'px'; glow.style.top=my+'px';
+if (window.innerWidth > 768) {
+  const c = document.getElementById('cur'), r = document.getElementById('cur-ring'), glow = document.getElementById('ambientGlow');
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    c.style.left = mx + 'px'; c.style.top = my + 'px';
+    glow.style.left = mx + 'px'; glow.style.top = my + 'px';
   });
-  
-  function animRing(){
-    rx+=(mx-rx)*.15; ry+=(my-ry)*.15;
-    r.style.left=rx+'px'; r.style.top=ry+'px';
+
+  function animRing() {
+    rx += (mx - rx) * .15; ry += (my - ry) * .15;
+    r.style.left = rx + 'px'; r.style.top = ry + 'px';
     requestAnimationFrame(animRing);
   }
   animRing();
-  
-  document.querySelectorAll('a, button, .exp-card, .xp-item, .work-item').forEach(el=>{
-    el.addEventListener('mouseenter',()=>r.classList.add('hovered'));
-    el.addEventListener('mouseleave',()=>r.classList.remove('hovered'));
+
+  document.querySelectorAll('a, button, .exp-card, .xp-item, .work-item, .timeline-item').forEach(el => {
+    el.addEventListener('mouseenter', () => r.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => r.classList.remove('hovered'));
   });
 
-  /* ── 3D TILT EFFECT FOR TERMINAL CARD ── */
   const termCard = document.getElementById('termCard');
   termCard.addEventListener('mousemove', (e) => {
     const rect = termCard.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg tilt
-    const rotateY = ((x - centerX) / centerX) * 6;
-    termCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    const rotateX = ((y - rect.height / 2) / rect.height) * -8;
+    const rotateY = ((x - rect.width / 2) / rect.width) * 8;
+    termCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
   });
   termCard.addEventListener('mouseleave', () => {
     termCard.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
   });
 }
 
-/* ── TERMINAL BOOT-UP SEQUENCE ── */
-window.addEventListener('DOMContentLoaded', () => {
-  const termLines = document.querySelectorAll('.term-line');
-  termLines.forEach((line, index) => {
-    setTimeout(() => {
-      line.style.transition = "opacity 0.1s ease, transform 0.1s ease";
-      line.style.opacity = "1";
-      line.style.transform = "translateX(0)";
-    }, 1200 + (index * 80)); // Starts typing after hero animation finishes
+/* ── NAV SCROLL BEHAVIOR ── */
+const nav = document.getElementById('mainNav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > 80) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  lastScroll = currentScroll;
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(s => navObserver.observe(s));
+
+
+/* ── 🟢 CONTINUOUS ANIMATIONS (Re-trigger when scroll up & down) ── */
+
+/* 1. Scroll Reveal Fade-in Elements */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+    } else {
+      e.target.classList.remove('vis');
+    }
+  });
+}, { threshold: .08 });
+document.querySelectorAll('.fi, .timeline-container').forEach(el => io.observe(el));
+
+/* 2. Keyframe Animations (Hero Text, Terminal Box) */
+const kfObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animation = '';
+    } else {
+      e.target.style.animation = 'none'; // reset keyframes
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.hero-reveal, .term-wrapper, .scroll-cue').forEach(el => kfObs.observe(el));
+
+/* 3. Skill Bars Filling */
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bar-fill').forEach((b, i) => {
+        setTimeout(() => {
+          b.style.setProperty('--w', (b.dataset.w / 100));
+          b.classList.add('anim');
+          b.style.transform = 'scaleX(' + b.dataset.w / 100 + ')';
+        }, i * 120);
+      });
+    } else {
+      // Empty the bars when leaving view
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        b.classList.remove('anim');
+        b.style.transform = 'scaleX(0)';
+      });
+    }
+  });
+}, { threshold: .2 });
+document.querySelectorAll('.exp-card').forEach(el => barObs.observe(el));
+
+/* 4. Terminal Boot-up Text typing */
+const termBody = document.getElementById('termBody');
+const termLines = document.querySelectorAll('.term-line');
+const termObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      termLines.forEach((line, index) => {
+        setTimeout(() => {
+          line.style.transition = "opacity 0.15s ease, transform 0.15s ease";
+          line.style.opacity = "1";
+          line.style.transform = "translateX(0)";
+        }, 300 + (index * 60)); // slightly faster for scroll trigger
+      });
+    } else {
+      // Hide lines again for next scroll
+      termLines.forEach(line => {
+        line.style.transition = "none";
+        line.style.opacity = "0";
+        line.style.transform = "translateX(-10px)";
+      });
+    }
+  });
+}, { threshold: 0.1 });
+if (termBody) termObs.observe(termBody);
+
+
+/* ── MISC EFFECTS ── */
+document.querySelectorAll('.btn-gold, .btn-outline, .ct-link').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
   });
 });
 
-/* ── SCROLL REVEAL ── */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
-},{threshold:.08});
-document.querySelectorAll('.fi').forEach(el=>io.observe(el));
-
-/* ── SKILL BARS ── */
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.bar-fill').forEach(b=>{
-        b.style.setProperty('--w',(b.dataset.w/100));
-        b.classList.add('anim');
-        b.style.transform='scaleX('+b.dataset.w/100+')';
-      });
-      barObs.unobserve(e.target);
-    }
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    const ripple = document.createElement('span');
+    ripple.className = 'chip-ripple';
+    const rect = chip.getBoundingClientRect();
+    ripple.style.cssText = `left:${e.clientX - rect.left}px;top:${e.clientY - rect.top}px`;
+    chip.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
   });
-},{threshold:.2});
-document.querySelectorAll('.exp-card').forEach(el=>barObs.observe(el));
+});
+
+(function typedCursor() {
+  if (!termBody) return;
+  const cursor = document.createElement('span');
+  cursor.className = 'typed-cursor';
+  cursor.textContent = '█';
+  termBody.appendChild(cursor);
+})();
+
+window.addEventListener('scroll', () => {
+  const letter = document.querySelector('.hero-bg-letter');
+  if (letter) {
+    const scrolled = window.scrollY;
+    letter.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
+  }
+}, { passive: true });
 </script>
 </body>
 </html>
