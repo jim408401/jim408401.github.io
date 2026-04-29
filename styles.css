@@ -276,15 +276,21 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 
 /* ─── ABOUT ─────────────────────────────────────────── */
 /* 加入 align-items: center 讓文字垂直置中 */
-.about-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;}
+.about-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:stretch;}
 @media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:72px}}
-.about-body p{font-size:.93rem;color:var(--muted);line-height:1.95;margin-bottom:18px;font-weight:300}
+.about-body{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100%;
+}
+.about-body p{font-size:.93rem;color:var(--muted);line-height:1.9;margin-bottom:16px;font-weight:300}
 .about-body strong{color:var(--text);font-weight:500}
 
 /* ─── TIMELINE ──────────────────────────────────────── */
-.timeline-container{position:relative;padding-left:10px;}
+.timeline-container{position:relative;padding-left:10px;display:flex;flex-direction:column;justify-content:center;}
 .timeline-container::before{
-  content:'';position:absolute;left:104px;top:10px;bottom:10px;
+  content:'';position:absolute;left:104px;top:12px;bottom:12px;
   width:1px;background:var(--border2);
   transform-origin:top;transform:scaleY(0);
   transition:transform 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s;
@@ -294,8 +300,9 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 /* 移除上版的肥厚 padding 與 background 動畫 */
 .timeline-item{
   display:grid;grid-template-columns:80px 50px 1fr;
-  align-items:flex-start;margin-bottom:40px;position:relative;
+  align-items:flex-start;margin-bottom:24px;position:relative;
 }
+.timeline-item:last-child{margin-bottom:0;}
 
 /* 輕微向右浮動與文字變色 */
 .tl-content{padding-top:2px; transition: transform 0.3s ease;}
@@ -325,14 +332,15 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 .timeline-item:nth-child(1) .tl-dot{transition-delay:0.1s;}
 .timeline-item:nth-child(2) .tl-dot{transition-delay:0.25s;}
 .timeline-item:nth-child(3) .tl-dot{transition-delay:0.4s;}
+.timeline-item:nth-child(4) .tl-dot{transition-delay:0.55s;}
 
 .timeline-item.current .tl-dot{
   background:var(--teal);
   box-shadow:0 0 0 4px rgba(45,212,191,0.15),0 0 15px rgba(45,212,191,0.4);
 }
 
-.tl-title{font-family:'Outfit',sans-serif;font-size:1.35rem;font-weight:500;color:var(--text);margin-bottom:4px;letter-spacing:0.02em;transition:color 0.3s;}
-.tl-sub{font-size:0.9rem;color:var(--muted);margin-bottom:8px;}
+.tl-title{font-family:'Outfit',sans-serif;font-size:1.18rem;font-weight:500;color:var(--text);margin-bottom:3px;letter-spacing:0.02em;transition:color 0.3s;}
+.tl-sub{font-size:0.84rem;color:var(--muted);line-height:1.45;margin-bottom:4px;}
 .tl-badge{
   display:inline-block;font-family:'JetBrains Mono',monospace;
   font-size:0.65rem;padding:4px 8px;border-radius:3px;letter-spacing:0.05em;
