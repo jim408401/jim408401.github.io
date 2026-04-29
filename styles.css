@@ -494,6 +494,7 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 }
 .work-item:hover .work-title{color:var(--gold);}
 .work-desc{font-size:.88rem;color:var(--muted);line-height:1.75;max-width:620px;margin-bottom:18px;font-weight:300;}
+.work-item:hover .work-desc{color:var(--text);}
 .work-arrow{
   font-size:1.2rem;color:var(--gold);opacity:0;
   transition:opacity .2s,transform .3s;
