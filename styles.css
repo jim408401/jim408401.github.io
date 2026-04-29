@@ -363,6 +363,13 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 }
 .xp-item:hover{background:var(--surface2);}
 .xp-item:hover::before{transform:scaleY(1);}
+.xp-item:hover .xp-date,
+.xp-item:hover .xp-current,
+.xp-item:hover .xp-role,
+.xp-item:hover .xp-company,
+.xp-item:hover .xp-list-inner li,
+.xp-item:hover .chip,
+.xp-item:hover .chip.teal{color:var(--text);}
 .xp-date{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gold);line-height:1.6}
 .xp-current{
   display:inline-block;margin-top:6px;font-size:.6rem;
@@ -493,6 +500,13 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,3.2rem);letter
 }
 .work-item:hover .work-title{color:var(--gold);}
 .work-desc{font-size:.88rem;color:var(--muted);line-height:1.75;max-width:620px;margin-bottom:18px;font-weight:300;}
+.work-item:hover .work-num,
+.work-item:hover .work-year,
+.work-item:hover .work-award,
+.work-item:hover .work-title,
+.work-item:hover .work-desc,
+.work-item:hover .chip,
+.work-item:hover .chip.teal{color:var(--text);}
 .work-arrow{
   font-size:1.2rem;color:var(--gold);opacity:0;
   transition:opacity .2s,transform .3s;
