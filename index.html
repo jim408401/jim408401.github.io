@@ -1,552 +1,425 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jim Wu | Software Engineer</title>
+<meta name="description" content="Jim Wu - Software Engineer focused on backend, full-stack and AI application development with C#/.NET, Python, LLM and RAG.">
+<meta name="theme-color" content="#F3E4CF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jim Wu | Software Engineer">
+<meta property="og:description" content="Backend, full-stack and AI application engineer. C#/.NET, Python, LLM and RAG.">
+<meta property="og:url" content="https://jim408401.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,400..900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+(function(){try{var s=localStorage.getItem('theme');
+if(s!=='dark'&&s!=='light')s=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+document.documentElement.setAttribute('data-theme',s);}catch(e){}})();
+</script>
 </head>
-<body>
-<!-- Ambient Mouse Glow -->
-<div class="ambient-glow" id="ambientGlow"></div>
+<body id="top">
+<a class="skip-link" href="#about">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- Particle Canvas -->
-<canvas id="particleCanvas"></canvas>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-daisy" viewBox="0 0 100 100">
+    <g fill="#F2A0C0" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round">
+      <ellipse cx="50" cy="25" rx="12" ry="17"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(45 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(90 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(135 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(180 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(225 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(270 50 50)"/>
+      <ellipse cx="50" cy="25" rx="12" ry="17" transform="rotate(315 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="16" fill="#F7C63C" stroke="currentColor" stroke-width="3.5"/>
+    <circle cx="44.5" cy="46.5" r="2.7" fill="#141210"/>
+    <circle cx="55.5" cy="46.5" r="2.7" fill="#141210"/>
+    <path d="M44 55q6 6.5 12 0" fill="none" stroke="#141210" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-monitor" viewBox="0 0 120 112">
+    <rect x="5" y="5" width="110" height="80" rx="13" fill="#5FBEB0" stroke="#141210" stroke-width="4.5"/>
+    <rect x="17" y="16" width="86" height="56" rx="8" fill="#FAF1E2" stroke="#141210" stroke-width="3.5"/>
+    <circle cx="45" cy="38" r="4.2" fill="#141210"/>
+    <circle cx="75" cy="38" r="4.2" fill="#141210"/>
+    <path d="M44 52q16 13 32 0" fill="none" stroke="#141210" stroke-width="4" stroke-linecap="round"/>
+    <path d="M28 27l5-7 5 7" fill="none" stroke="#141210" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M82 27l5-7 5 7" fill="none" stroke="#141210" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="49" y="85" width="22" height="12" fill="#5FBEB0" stroke="#141210" stroke-width="4"/>
+    <rect x="25" y="95" width="70" height="13" rx="6.5" fill="#EE6A23" stroke="#141210" stroke-width="4.5"/>
+  </symbol>
+  <symbol id="i-spark" viewBox="0 0 40 40">
+    <path d="M20 1c1.9 12.1 6 16.2 18.1 18.1C26 21 21.9 25.1 20 37.2 18.1 25.1 14 21 1.9 19.1 14 17.2 18.1 13.1 20 1z" fill="#F7C63C" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-cup" viewBox="0 0 70 70">
+    <path d="M14 46V26h34v20a10 10 0 0 1-10 10H24a10 10 0 0 1-10-10z" fill="#EE6A23" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M48 31h6a7 7 0 0 1 0 14h-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    <path d="M24 18c0-4 4-4 4-8M34 18c0-4 4-4 4-8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+  </symbol>
+</svg>
 
-<div id="noise"></div>
-<div id="grid"></div>
-<div id="cur"></div>
-<div id="cur-ring"></div>
-
-<!-- Page Transition Overlay -->
-<div class="page-overlay" id="pageOverlay"></div>
+<div class="frame">
 
 <!-- NAV -->
-<nav id="mainNav">
-  <div class="nav-logo">Jim Wu<em>.</em></div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+<nav class="nav">
+  <div class="nav-bar">
+    <button class="nav-globe" id="themeToggle" type="button" aria-label="Switch colour theme" aria-pressed="false">
+      <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13A8.6 8.6 0 1 1 11 3.2 6.7 6.7 0 0 0 20.8 13z"/></svg>
+      <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.2v2.4M12 19.4v2.4M2.2 12h2.4M19.4 12h2.4M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"/></svg>
+    </button>
+    <a class="nav-name" href="#top" aria-label="Back to top">Jim&nbsp;Wu</a>
+    <span class="nav-div" aria-hidden="true"></span>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+    </div>
+    <a class="nav-cta" href="#contact">Contact <span aria-hidden="true">&#8599;</span></a>
   </div>
+  <button class="nav-burger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-letter">E</div>
-  <div class="wrap">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="pill hero-reveal"><span class="pill-dot"></span>Available for cool projects</div>
-        <h1 class="hero-reveal">
-          <span class="thin">Software</span>
-          <span class="glitch-text" data-text="ENGINEER">ENGINEER</span>
-        </h1>
-        <p class="hero-sub hero-reveal">I build things — web apps, AI tools, and systems that make work smarter and simpler.</p>
-        <div class="hero-btns hero-reveal">
-          <a href="#projects" class="btn-gold">View My Projects</a>
-          <a href="#contact" class="btn-outline">Contact →</a>
-        </div>
-      </div>
-      <div class="term-wrapper">
-        <div class="term-card" id="termCard">
-          <div class="term-head">
-            <div class="term-dot td1"></div>
-            <div class="term-dot td2"></div>
-            <div class="term-dot td3"></div>
-            <span class="term-title">jim.config.ts</span>
-          </div>
-          <div class="term-body" id="termBody">
-            <div class="term-line"><span class="c-cmt">// booting engineer profile...</span></div>
-            <div class="term-line">&nbsp;</div>
-            <div class="term-line"><span class="c-key">const</span> <span class="c-val">jim</span> = {</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">name</span>: <span class="c-str">"Jim Wu"</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">role</span>: <span class="c-str">"Software Engineer"</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">stack</span>:[</div>
-            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Python"</span>, <span class="c-str">"C#"</span>, <span class="c-str">"ASP.NET"</span>, <span class="c-str">"SQL"</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"React"</span>, <span class="c-str">"Vue.js"</span>, <span class="c-str">"Node.js"</span>,</div>
-            <div class="term-line">&nbsp;&nbsp;],</div>
-            <div class="term-line">&nbsp;&nbsp;<span class="c-prop">status</span>: <span class="c-str">"open_to_work"</span></div>
-            <div class="term-line">};</div>
-            <div class="term-line">&nbsp;</div>
-            <div class="term-line"><span class="c-key">export default</span> <span class="c-val">jim</span>;</div>
-          </div>
-          <div class="term-scanline"></div>
-        </div>
+<header class="hero">
+  <div class="hero-top">
+    <div class="hero-title">
+      <h1 class="display rise d1">Software<br>Engineer</h1>
+      <svg class="ill ill-float daisy-a" aria-hidden="true"><use href="#i-daisy"/></svg>
+      <svg class="ill spark spark-1" aria-hidden="true"><use href="#i-spark"/></svg>
+      <svg class="ill spark spark-3" aria-hidden="true"><use href="#i-spark"/></svg>
+      <div class="sticker sticker--hero" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><polygon points="50.0,1.0 55.6,10.9 63.8,3.0 66.4,14.1 76.5,8.8 75.9,20.1 87.0,17.9 83.2,28.6 94.6,29.6 87.9,38.9 98.5,43.0 89.5,50.0 98.5,57.0 87.9,61.1 94.6,70.4 83.2,71.4 87.0,82.1 75.9,79.9 76.5,91.2 66.4,85.9 63.8,97.0 55.6,89.1 50.0,99.0 44.4,89.1 36.2,97.0 33.6,85.9 23.5,91.2 24.1,79.9 13.0,82.1 16.8,71.4 5.4,70.4 12.1,61.1 1.5,57.0 10.5,50.0 1.5,43.0 12.1,38.9 5.4,29.6 16.8,28.6 13.0,17.9 24.1,20.1 23.5,8.8 33.6,14.1 36.2,3.0 44.4,10.9" fill="#5FBEB0" stroke="currentColor" stroke-width="2.5"/></svg>
+        <span>Open to<br>work</span>
       </div>
     </div>
-    <div class="scroll-cue"><span>scroll</span><div class="scroll-bar"></div></div>
+    <div class="hero-card slideL d3">
+      <h2>Backend.<br>Full-stack.<br>AI&nbsp;applications.</h2>
+      <div class="rule"></div>
+      <a class="btn" href="#projects">View my projects <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg></a>
+    </div>
   </div>
-</section>
 
-<!-- 01. ABOUT -->
+  <div class="panel-row">
+    <div class="panel pink popin d4">
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-dot" style="background:#EE6A23"></span>
+          <span class="code-dot" style="background:#F7C63C"></span>
+          <span class="code-dot" style="background:#5FBEB0"></span>
+          <span class="code-title">jim.config.ts</span>
+        </div>
+        <div class="code-body" id="codeBody">
+          <div class="cl"><span class="no">1</span><span class="ln"><span class="cc-c">// booting engineer profile...</span></span></div>
+          <div class="cl"><span class="no">2</span><span class="ln"><span class="cc-k">const</span> jim = {</span></div>
+          <div class="cl"><span class="no">3</span><span class="ln">  <span class="cc-p">name</span>:   <span class="cc-s">"Jim Wu"</span>,</span></div>
+          <div class="cl"><span class="no">4</span><span class="ln">  <span class="cc-p">role</span>:   <span class="cc-s">"Software Engineer"</span>,   <span class="cc-c">// part-time bug archaeologist</span></span></div>
+          <div class="cl"><span class="no">5</span><span class="ln">  <span class="cc-p">stack</span>:  [<span class="cc-s">"C#"</span>, <span class="cc-s">"ASP.NET"</span>, <span class="cc-s">"Python"</span>,</span></div>
+          <div class="cl"><span class="no">6</span><span class="ln">           <span class="cc-s">"JavaScript"</span>, <span class="cc-s">"Node.js"</span>, <span class="cc-s">"SQL Server"</span>],</span></div>
+          <div class="cl"><span class="no">7</span><span class="ln">  <span class="cc-p">ai</span>:     [<span class="cc-s">"LLM"</span>, <span class="cc-s">"RAG"</span>, <span class="cc-s">"LangChain"</span>],</span></div>
+          <div class="cl"><span class="no">8</span><span class="ln">  <span class="cc-p">status</span>: <span class="cc-s">"open_to_work"</span>      <span class="cc-c">// hi there, recruiters</span></span></div>
+          <div class="cl"><span class="no">9</span><span class="ln">};</span></div>
+          <div class="cl"><span class="no">10</span><span class="ln"><span class="cc-k">export default</span> jim;</span></div>
+          <span class="type-cursor" aria-hidden="true"></span>
+        </div>
+      </div>
+      <svg class="ill monitor" aria-hidden="true"><use href="#i-monitor"/></svg>
+    </div>
+    <div class="panel-side">
+      <div class="panel orange popin d5">
+        <div class="panel-kicker">Currently</div>
+        <div class="big-stat">e&#8209;SOFT</div>
+        <p>Software Engineer, building enterprise systems, AI features and cybersecurity products.</p>
+        <div class="dots" aria-hidden="true"></div>
+      </div>
+      <div class="panel blue popin d6">
+        <div class="panel-kicker">Previously</div>
+        <div class="big-stat">Delta</div>
+        <p>Software Engineer Intern, building a RAG knowledge base and internal tools for engineering teams.</p>
+        <div class="dots" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+
+</header>
+
+<!-- ABOUT -->
 <section id="about">
-  <div class="wrap">
-    <div class="sec-label fi">
-      <span class="sec-num">01 /</span>
-      <h2>About Me</h2>
-      <div class="sec-rule"></div>
+  <div class="sec-head fi"><span class="sec-num">01</span><h2 class="display">About Me</h2><span class="sec-rule"></span></div>
+  <div class="about">
+    <div class="about-card fi">
+      <p class="lead">I'm Jim Wu &mdash; a software engineer at e-SOFT, working across backend, full-stack and AI application development for enterprise systems and cybersecurity products.</p>
+      <p>Most of my work is C#, ASP.NET and SQL Server. Lately that has meant deploying an on-premises LLM with Docker and wiring it into systems never designed for one, and extending Government Configuration Baseline (GCB) checks to macOS, network devices, IIS and AWS.</p>
+      <p>I also rewrote a single-threaded import to run concurrently &mdash; 5,000 records a second became 11,000. Before that I interned at Delta Electronics, building a RAG knowledge base with LangChain, Ollama and ChromaDB, and a network topology visualization with D3.js.</p>
     </div>
-    <div class="about-grid">
-      <div class="about-body">
-        <p class="fi"><strong>I'm Jim Wu, a Software Engineer with 2 years of experience in full-stack development and AI-powered applications. My expertise includes web application architecture, API design, database management, and LLM integration.</strong></p>
-        <p class="fi"><strong>I have worked on enterprise AI adoption projects, RAG-based knowledge systems, and system performance optimization, helping organizations leverage AI to enhance productivity and streamline workflows.</strong></p>
-      </div>
-        <div class="timeline-container fi">
-          <div class="timeline-item current fi">
-            <div class="tl-time">
-              <span class="year">2025</span>
-              <span class="year">Now</span>
-            </div>
-            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-            <div class="tl-content">
-              <h3 class="tl-title">Software Engineer</h3>
-              <p class="tl-sub">e-SOFT (曜祥網技)</p>
-              <span class="tl-badge">CURRENT</span>
-            </div>
-          </div>
-          <div class="timeline-item fi">
-            <div class="tl-time">
-              <span class="year">2024</span>
-              <span class="year">2025</span>
-            </div>
-            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-            <div class="tl-content">
-              <h3 class="tl-title">Software Engineer Intern</h3>
-              <p class="tl-sub">Delta Electronics (台達電子)</p>
-            </div>
-          </div>
-          <div class="timeline-item fi">
-            <div class="tl-time">
-              <span class="year">2023</span>
-              <span class="year">2025</span>
-            </div>
-            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-            <div class="tl-content">
-              <h3 class="tl-title">M.S. Information Management</h3>
-              <p class="tl-sub">NSYSU (國立中山大學資訊管理研究所)</p>
-              <span class="tl-badge award">ICIM 2024 Accepted Paper</span>
-            </div>
-          </div>
-          <div class="timeline-item fi">
-            <div class="tl-time">
-              <span class="year">2022</span>
-              <span class="year">2023</span>
-            </div>
-            <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-            <div class="tl-content">
-              <h3 class="tl-title">Smart Cooking Assistant</h3>
-              <span class="tl-badge award">INNOSERVE AWARDS 2022</span>
-            </div>
-          </div>
+    <div class="tl fi">
+      <div class="tl-item t-orange">
+        <span class="tl-node" aria-hidden="true">01</span>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-when">2025 &mdash; Now</span><span class="tag now">Current</span></div>
+          <div class="tl-what"><b>Software Engineer</b><span class="tl-org">e-SOFT (曜祥網技)</span></div>
         </div>
+      </div>
+      <div class="tl-item t-blue">
+        <span class="tl-node" aria-hidden="true">02</span>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-when">2024 &mdash; 2025</span></div>
+          <div class="tl-what"><b>Software Engineer Intern</b><span class="tl-org">Delta Electronics (台達電子)</span></div>
+        </div>
+      </div>
+      <div class="tl-item t-yellow">
+        <span class="tl-node" aria-hidden="true">03</span>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-when">2023 &mdash; 2025</span><span class="tag paper">ICIM 2024 Paper</span></div>
+          <div class="tl-what"><b>M.S. Information Management</b><span class="tl-org">NSYSU (國立中山大學)</span></div>
+        </div>
+      </div>
+      <div class="tl-item t-pink">
+        <span class="tl-node" aria-hidden="true">04</span>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-when">2022 &mdash; 2023</span><span class="tag award">2022 InnoServe Awards</span></div>
+          <div class="tl-what"><b>Cooking Assistant</b><span class="tl-org">Voice-interactive cooking app</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 02. EXPERIENCE -->
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="wrap">
-    <div class="sec-label fi">
-      <span class="sec-num">02 /</span>
-      <h2>Experience</h2>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="xp-list">
-
-      <div class="xp-item fi">
-        <div>
-          <div class="xp-date">2025.08<br>— Present</div>
-          <span class="xp-current">Current</span>
-        </div>
-        <div class="xp-content">
-          <div class="xp-role">Software Engineer</div>
-          <div class="xp-company">@ e-SOFT (曜祥網技)</div>
-          <ul class="xp-list-inner">
-            <li>Integrated an enterprise AI chatbot with existing systems and reporting services, enhancing information retrieval and user experience.</li>
-            <li>Developed and maintained enterprise applications using C#/.NET, delivering new features, system enhancements, and integrations.</li>
-            <li>Maintained security compliance modules, resolving VANS vulnerability reporting, CPE/CVE correlation, and data synchronization issues.</li>
-            <li>Re-architected the data synchronization framework from single-threaded to multi-threaded processing, improving performance by over 200%.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">#C#</span><span class="chip">#ASP.NET</span><span class="chip">#Docker</span><span class="chip">#SQL</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span>
-          </div>
+  <div class="sec-head fi"><span class="sec-num">02</span><h2 class="display">Experience</h2><span class="sec-rule"></span></div>
+  <div class="xp">
+    <article class="xp-item a fi">
+      <div class="xp-bar">
+        <h3 class="display">Software Engineer</h3>
+        <span class="xp-co"> e-SOFT (曜祥網技)</span>
+        <span class="xp-when">2025.08 &mdash; Present</span>
+      </div>
+      <div class="xp-body">
+        <ul>
+          <li><span class="hl">Developed and maintained enterprise system features using C#, ASP.NET and SQL Server, resolving performance and data issues and improving query workflows and data presentation.</span></li>
+          <li><span class="hl">Deployed an on-premises LLM with Docker and integrated it into existing systems, providing feature guidance and report recommendations that cut manual query setup.</span></li>
+          <li><span class="hl">Extended Government Configuration Baseline (GCB) compliance checks to macOS, network devices (FortiGate, Palo Alto), IIS and AWS.</span></li>
+          <li><span class="hl">Maintained CVE/VANS vulnerability import validation, asset CPE matching and product file synchronization, and raised throughput by about 120% (5,000 to 11,000 records/sec) through multithreading.</span></li>
+        </ul>
+        <div class="chips">
+          <span class="chip">C#</span><span class="chip">ASP.NET</span><span class="chip">SQL Server</span><span class="chip">Docker</span><span class="chip">LLM</span><span class="chip">Security</span>
         </div>
       </div>
-
-      <div class="xp-item fi">
-        <div>
-          <div class="xp-date">2024.07<br>— 2025.06</div>
-        </div>
-        <div class="xp-content">
-          <div class="xp-role">Software Engineer (Intern)</div>
-          <div class="xp-company">@ Delta Electronics (台達電子)</div>
-          <ul class="xp-list-inner">
-            <li>Built a RAG-based knowledge assistant using LangChain, Ollama, ChromaDB, FastAPI, and Streamlit, improving document retrieval efficiency by 150%+.</li>
-            <li>Developed and tested internal Python tools for business automation and engineering applications.</li>
-            <li>Developed a D3.js-based network topology visualization system with search, filtering, and rule inspection capabilities.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">#Python</span><span class="chip">#FastAPI</span><span class="chip">#Node.js</span><span class="chip teal">#LLM</span><span class="chip teal">#RAG</span><span class="chip teal">#LangChain</span>
-          </div>
+    </article>
+    <article class="xp-item b fi">
+      <div class="xp-bar">
+        <h3 class="display">Software Engineer Intern</h3>
+        <span class="xp-co"> Delta Electronics (台達電子)</span>
+        <span class="xp-when">2024.07 &mdash; 2025.06</span>
+      </div>
+      <div class="xp-body">
+        <ul>
+          <li><span class="hl">Built an enterprise RAG-based Q&amp;A system with LangChain, Ollama, ChromaDB and Streamlit, pairing semantic search over internal technical documents with LLM-generated answers to cut manual lookup and support effort.</span></li>
+          <li><span class="hl">Developed an interactive network topology visualization with D3.js and Node.js, with node search and conditional filtering for faster network architecture analysis.</span></li>
+          <li><span class="hl">Tested and validated internal tools for PDF watermarking, CAD simulation and cloud file synchronization, and contributed to selected feature development.</span></li>
+        </ul>
+        <div class="chips">
+          <span class="chip">LLM</span><span class="chip">RAG</span><span class="chip">LangChain</span><span class="chip">Python</span><span class="chip">Node.js</span>
         </div>
       </div>
-
-    </div>
+    </article>
   </div>
 </section>
 
-<!-- 03. SKILLS -->
+<!-- SKILLS -->
 <section id="skills">
-  <div class="wrap">
-    <div class="sec-label fi">
-      <span class="sec-num">03 /</span>
-      <h2>Skills</h2>
-      <div class="sec-rule"></div>
+  <div class="sec-head fi"><span class="sec-num">03</span><h2 class="display">Skills</h2><span class="sec-rule"></span></div>
+  <div class="skills">
+    <div class="skill fi" style="background:var(--orange)">
+      <h3 class="display">Backend &amp; APIs</h3>
+      <div class="chips"><span class="chip">C#</span><span class="chip">.NET</span><span class="chip">ASP.NET MVC</span><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">REST API</span></div>
+      <div class="dots" aria-hidden="true"></div>
+      <svg class="ill spark" aria-hidden="true"><use href="#i-spark"/></svg>
     </div>
-    <div class="exp-grid">
-      <div class="exp-card fi">
-        <div class="exp-icon-wrap">⬡</div>
-        <div class="exp-name">Full-Stack Dev</div>
-        <div class="exp-blurb">Designing and building scalable web applications, secure APIs, and robust backend architectures.</div>
-        <div class="bars">
-          <div class="bar-row"><span class="bar-label">Python</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
-          <div class="bar-row"><span class="bar-label">C# / ASP.NET</span><div class="bar-track"><div class="bar-fill" data-w="75"></div></div></div>
-          <div class="bar-row"><span class="bar-label">React / Vue.js</span><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Node.js / Express</span><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
-          <div class="bar-row"><span class="bar-label">SQL &amp; NoSQL</span><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
-        </div>
-      </div>
-      <div class="exp-card fi">
-        <div class="exp-icon-wrap">◈</div>
-        <div class="exp-name">LLM &amp; AI Engineering</div>
-        <div class="exp-blurb">Developing RAG-driven AI systems and chatbots with seamless LLM integration and data preprocessing.</div>
-        <div class="bars">
-          <div class="bar-row"><span class="bar-label">LangChain / RAG</span><div class="bar-track"><div class="bar-fill teal" data-w="80"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Ollama / Hugging Face</span><div class="bar-track"><div class="bar-fill teal" data-w="85"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Prompt Engineering</span><div class="bar-track"><div class="bar-fill teal" data-w="90"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Data Processing</span><div class="bar-track"><div class="bar-fill teal" data-w="85"></div></div></div>
-          <div class="bar-row"><span class="bar-label">Vector Databases</span><div class="bar-track"><div class="bar-fill teal" data-w="70"></div></div></div>
-        </div>
-      </div>
+    <div class="skill fi" style="background:var(--blue)">
+      <h3 class="display">Frontend &amp; Data Viz</h3>
+      <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">React</span><span class="chip">D3.js</span></div>
+      <div class="dots" aria-hidden="true"></div>
+    </div>
+    <div class="skill fi" style="background:var(--pink)">
+      <h3 class="display">Data &amp; DevOps</h3>
+      <div class="chips"><span class="chip">SQL Server</span><span class="chip">MongoDB</span><span class="chip">Docker</span><span class="chip">Git</span><span class="chip">Jenkins</span><span class="chip">CI/CD</span></div>
+      <div class="dots" aria-hidden="true"></div>
+      <svg class="ill spark" aria-hidden="true"><use href="#i-spark"/></svg>
+    </div>
+    <div class="skill fi" style="background:var(--teal)">
+      <h3 class="display">AI &amp; LLM</h3>
+      <div class="chips"><span class="chip">RAG Pipeline</span><span class="chip">LangChain</span><span class="chip">Ollama</span><span class="chip">ChromaDB</span><span class="chip">Hugging Face</span><span class="chip">Open WebUI</span></div>
+      <div class="dots" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 
-<!-- 04. PROJECTS -->
+
+<!-- PROJECTS -->
 <section id="projects">
-  <div class="wrap">
-    <div class="sec-label fi">
-      <span class="sec-num">04 /</span>
-      <h2>Projects</h2>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="works-list">
-      <a href="https://github.com/jim408401/chatbot" target="_blank" rel="noopener noreferrer" class="work-link">
-        <div class="work-item fi">
-          <div class="work-num">001</div>
-          <div>
-            <div class="work-meta">
-              <span class="work-year">2024 — 2025</span>
-            </div>
-            <div class="work-title">Q&A Chatbot</div>
-            <div class="work-desc">A RAG-based chatbot, integrating LangChain with a locally hosted Ollama model to ensure data privacy. It features multi-format file upload, vector storage via ChromaDB, and advanced semantic retrieval with reranking.</div>
-            <div class="chips">
-              <span class="chip">#Python</span><span class="chip">#Streamlit</span><span class="chip">#FastAPI</span><span class="chip teal">#RAG</span><span class="chip teal">#Langchain</span><span class="chip teal">#Ollama</span><span class="chip teal">#ChromaDB</span>
-            </div>
-          </div>
-          <div class="work-arrow">↗</div>
-        </div>
-      </a>
-      <a href="https://github.com/jim408401/cooking-assistant" target="_blank" rel="noopener noreferrer" class="work-link">
-        <div class="work-item fi">
-          <div class="work-num">002</div>
-          <div>
-            <div class="work-meta">
-              <span class="work-year">2022 — 2023</span>
-              <span class="work-award">🏆2022 InnoServe Awards</span>
-            </div>
-            <div class="work-title">Smart Cooking Assistant</div>
-            <div class="work-desc">A voice-controlled cooking assistant utilizing speech-to-text and intent recognition to provide recipe search, step-by-step guidance, and smart inventory management.</div>
-            <div class="chips">
-              <span class="chip">#React</span><span class="chip">#Node.js</span><span class="chip">#Firebase</span><span class="chip">#STT</span><span class="chip">#TTS</span><span class="chip teal">#Azure LUIS (Language Understanding)</span>
-            </div>
-          </div>
-          <div class="work-arrow">↗</div>
-        </div>
-      </a>
-    </div>
+  <div class="sec-head fi"><span class="sec-num">04</span><h2 class="display">Projects</h2><span class="sec-rule"></span></div>
+  <div class="works">
+    <a class="work fi" href="https://github.com/jim408401/chatbot" target="_blank" rel="noopener noreferrer">
+      <div class="work-top">
+        <span class="work-no">001</span>
+        <span class="work-yr">2024 &mdash; 2025</span>
+        <span class="work-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+      <h3 class="display">Q&amp;A Chatbot</h3>
+      <p>A RAG-based chatbot pairing LangChain with a locally hosted Ollama model so documents never leave the machine. Multi-format file upload, vector storage in ChromaDB, and semantic retrieval with reranking.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Streamlit</span><span class="chip">FastAPI</span><span class="chip">RAG</span><span class="chip">LangChain</span><span class="chip">Ollama</span><span class="chip">ChromaDB</span></div>
+    </a>
+    <a class="work fi" href="https://github.com/jim408401/cooking-assistant" target="_blank" rel="noopener noreferrer">
+      <div class="work-top">
+        <span class="work-no" style="background:var(--yellow)">002</span>
+        <span class="work-yr">2022 &mdash; 2023</span>
+        <span class="chip award-chip">&#127942; 2022 InnoServe Awards</span>
+        <span class="work-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+      <h3 class="display">Cooking Assistant</h3>
+      <p>A voice-controlled cooking assistant using speech-to-text and intent recognition for recipe search, step-by-step guidance and fridge inventory management. I designed the voice interaction flow and integrated Azure speech services and LUIS.</p>
+      <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Firebase</span><span class="chip">Azure LUIS</span><span class="chip">STT / TTS</span></div>
+    </a>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="wrap">
-    <div class="contact-box fi">
-      <div class="ct-label">Contact</div>
-      <div class="ct-head">Let's build<br>something <em>impactful!</em></div>
-      <div class="ct-links">
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jimmy1245966@gmail.com" class="ct-link">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Email Me
-        </a>
-        <a href="https://github.com/jim408401" target="_blank" rel="noopener noreferrer" class="ct-link">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="https://linkedin.com/in/jimwu0408" target="_blank" rel="noopener noreferrer" class="ct-link">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
+  <div class="contact fi">
+    <svg class="ill ill-float daisy-c" aria-hidden="true"><use href="#i-daisy"/></svg>
+    <svg class="ill spark spark-2" aria-hidden="true"><use href="#i-spark"/></svg>
+    <div class="panel-kicker">Contact</div>
+    <h2 class="display">Let's build<br>something good</h2>
+    <div class="ct-links">
+      <a class="ct-link" href="https://github.com/jim408401" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="ct-link" href="https://linkedin.com/in/jimwu0408" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="ct-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jimmy1245966@gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </a>
     </div>
   </div>
+  <footer>
+    <div>&copy; 2026 Jim Wu</div>
+    <div>Built with <svg class="ill cup" aria-hidden="true"><use href="#i-cup"/></svg> &amp; too many semicolons.</div>
+  </footer>
 </section>
 
-<div class="wrap"><footer>
-  <div class="ft-copy">© 2026 Jim Wu. All rights reserved.</div>
-  <div class="ft-made">Built with <span>♥</span> &amp; lots of coffee.</div>
-</footer></div>
+</div>
 
 <script>
-/* ── PAGE LOAD OVERLAY ── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('pageOverlay').classList.add('fade-out');
-  }, 200);
-});
-
-/* ── PARTICLE SYSTEM ── */
-(function initParticles() {
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles =[];
-  let W, H;
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+/* theme toggle */
+(function(){
+  var btn=document.getElementById('themeToggle'), root=document.documentElement;
+  if(!btn) return;
+  function sync(){
+    var dark=root.getAttribute('data-theme')==='dark';
+    btn.setAttribute('aria-pressed',String(dark));
+    btn.setAttribute('aria-label', dark?'Switch to light theme':'Switch to dark theme');
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m) m.setAttribute('content', dark?'#17130F':'#F3E4CF');
   }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class Particle {
-    constructor() { this.reset(true); }
-    reset(init) {
-      this.x = Math.random() * W;
-      this.y = init ? Math.random() * H : H + 10;
-      this.size = Math.random() * 1.5 + 0.3;
-      this.speedY = -(Math.random() * 0.4 + 0.1);
-      this.speedX = (Math.random() - 0.5) * 0.2;
-      this.opacity = Math.random() * 0.5 + 0.1;
-      this.color = Math.random() > 0.6 ? '#2DD4BF' : '#C9A84C';
-    }
-    update() {
-      this.y += this.speedY;
-      this.x += this.speedX;
-      this.opacity -= 0.0008;
-      if (this.y < -10 || this.opacity <= 0) this.reset(false);
-    }
-    draw() {
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, this.opacity);
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  for (let i = 0; i < 80; i++) particles.push(new Particle());
-
-  function loop() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(loop);
-  }
-  loop();
+  sync();
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
 })();
 
-/* ── CURSOR & AMBIENT GLOW ── */
-if (window.innerWidth > 768) {
-  const c = document.getElementById('cur'), r = document.getElementById('cur-ring'), glow = document.getElementById('ambientGlow');
-  let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    c.style.left = mx + 'px'; c.style.top = my + 'px';
-    glow.style.left = mx + 'px'; glow.style.top = my + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx) * .15; ry += (my - ry) * .15;
-    r.style.left = rx + 'px'; r.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
+/* mobile nav */
+(function(){
+  var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  if(!t||!l)return;
+  function set(open){
+    l.classList.toggle('open',open);
+    t.classList.toggle('open',open);
+    t.setAttribute('aria-expanded',String(open));
+    t.setAttribute('aria-label',open?'Close menu':'Open menu');
   }
-  animRing();
-
-  document.querySelectorAll('a, button, .exp-card, .xp-item, .work-item, .timeline-item').forEach(el => {
-    el.addEventListener('mouseenter', () => r.classList.add('hovered'));
-    el.addEventListener('mouseleave', () => r.classList.remove('hovered'));
-  });
-
-  const termCard = document.getElementById('termCard');
-  termCard.addEventListener('mousemove', (e) => {
-    const rect = termCard.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateX = ((y - rect.height / 2) / rect.height) * -8;
-    const rotateY = ((x - rect.width / 2) / rect.width) * 8;
-    termCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-  });
-  termCard.addEventListener('mouseleave', () => {
-    termCard.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-  });
-}
-
-/* ── NAV SCROLL BEHAVIOR ── */
-const nav = document.getElementById('mainNav');
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const currentScroll = window.scrollY;
-  if (currentScroll > 80) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  lastScroll = currentScroll;
-});
-
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-const navObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navLinks.forEach(a => a.classList.remove('active'));
-      const activeLink = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-      if (activeLink) activeLink.classList.add('active');
-    }
-  });
-}, { threshold: 0.5 });
-sections.forEach(s => navObserver.observe(s));
-
-
-/* ── 🟢 CONTINUOUS ANIMATIONS (Re-trigger when scroll up & down) ── */
-
-/* 1. Scroll Reveal Fade-in Elements */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('vis');
-    } else {
-      e.target.classList.remove('vis');
-    }
-  });
-}, { threshold: .08 });
-document.querySelectorAll('.fi, .timeline-container').forEach(el => io.observe(el));
-
-/* 2. Keyframe Animations (Hero Text, Terminal Box) */
-const kfObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.animation = '';
-    } else {
-      e.target.style.animation = 'none'; // reset keyframes
-    }
-  });
-}, { threshold: 0.05 });
-document.querySelectorAll('.hero-reveal, .term-wrapper, .scroll-cue').forEach(el => kfObs.observe(el));
-
-/* 3. Skill Bars Filling */
-const barObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.bar-fill').forEach((b, i) => {
-        setTimeout(() => {
-          b.style.setProperty('--w', (b.dataset.w / 100));
-          b.classList.add('anim');
-          b.style.transform = 'scaleX(' + b.dataset.w / 100 + ')';
-        }, i * 120);
-      });
-    } else {
-      // Empty the bars when leaving view
-      e.target.querySelectorAll('.bar-fill').forEach(b => {
-        b.classList.remove('anim');
-        b.style.transform = 'scaleX(0)';
-      });
-    }
-  });
-}, { threshold: .2 });
-document.querySelectorAll('.exp-card').forEach(el => barObs.observe(el));
-
-/* 4. Terminal Boot-up Text typing */
-const termBody = document.getElementById('termBody');
-const termLines = document.querySelectorAll('.term-line');
-const termObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      termLines.forEach((line, index) => {
-        setTimeout(() => {
-          line.style.transition = "opacity 0.15s ease, transform 0.15s ease";
-          line.style.opacity = "1";
-          line.style.transform = "translateX(0)";
-        }, 300 + (index * 60)); // slightly faster for scroll trigger
-      });
-    } else {
-      // Hide lines again for next scroll
-      termLines.forEach(line => {
-        line.style.transition = "none";
-        line.style.opacity = "0";
-        line.style.transform = "translateX(-10px)";
-      });
-    }
-  });
-}, { threshold: 0.1 });
-if (termBody) termObs.observe(termBody);
-
-
-/* ── MISC EFFECTS ── */
-document.querySelectorAll('.btn-gold, .btn-outline, .ct-link').forEach(btn => {
-  btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-  });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = '';
-  });
-});
-
-document.querySelectorAll('.chip').forEach(chip => {
-  chip.addEventListener('click', (e) => {
-    const ripple = document.createElement('span');
-    ripple.className = 'chip-ripple';
-    const rect = chip.getBoundingClientRect();
-    ripple.style.cssText = `left:${e.clientX - rect.left}px;top:${e.clientY - rect.top}px`;
-    chip.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-  });
-});
-
-(function typedCursor() {
-  if (!termBody) return;
-  const cursor = document.createElement('span');
-  cursor.className = 'typed-cursor';
-  cursor.textContent = '█';
-  termBody.appendChild(cursor);
+  t.addEventListener('click',function(){set(!l.classList.contains('open'));});
+  l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
 })();
 
-window.addEventListener('scroll', () => {
-  const letter = document.querySelector('.hero-bg-letter');
-  if (letter) {
-    const scrolled = window.scrollY;
-    letter.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
-  }
-}, { passive: true });
+/* navbar darkens slightly once scrolled */
+(function(){
+  var nav=document.querySelector('.nav');
+  if(!nav) return;
+  var on=function(){ nav.classList.toggle('scrolled', window.scrollY>40); };
+  on(); window.addEventListener('scroll',on,{passive:true});
+})();
+
+/* release entrance animations so hover transforms work */
+document.querySelectorAll('.rise,.slideL,.popin').forEach(function(el){
+  el.addEventListener('animationend',function(e){ if(e.target===el) el.classList.add('anim-done'); });
+});
+
+/* code card typewriter */
+(function(){
+  var body=document.getElementById('codeBody');
+  if(!body) return;
+  var lines=[].slice.call(body.querySelectorAll('.ln'));
+  var cur=body.querySelector('.type-cursor');
+  if(!lines.length) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ if(cur)cur.classList.add('on'); return; }
+  body.classList.add('typing');
+  var ob=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      ob.disconnect();
+      var delay=0.35;
+      lines.forEach(function(l){
+        var n=Math.max(l.textContent.length,1);
+        var dur=Math.min(n*0.018,0.95);
+        l.style.setProperty('--n',n);
+        l.style.animation='typeln '+dur.toFixed(2)+'s steps('+n+') '+delay.toFixed(2)+'s forwards';
+        l.addEventListener('animationend',function(){ l.style.animation='none'; l.style.maxWidth='none'; l.style.overflow='visible'; });
+        delay+=dur*0.75+0.04;
+      });
+      var last=lines[lines.length-1];
+      var finish=function(){ body.classList.remove('typing'); lines.forEach(function(l){l.style.animation='none';l.style.maxWidth='none';l.style.overflow='visible';}); if(cur)cur.classList.add('on'); };
+      last.addEventListener('animationend',finish);
+      setTimeout(finish,(delay+1.5)*1000);
+    });
+  },{threshold:.2});
+  ob.observe(body);
+})();
+
+/* reveal once */
+var io=new IntersectionObserver(function(es,ob){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); ob.unobserve(e.target);} });
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fi').forEach(function(el){io.observe(el);});
+
+/* active nav link */
+var links=document.querySelectorAll('.nav-links a');
+var navObs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('active');});
+      var cur=document.querySelector('.nav-links a[href="#'+e.target.id+'"]');
+      if(cur)cur.classList.add('active');
+    }
+  });
+},{threshold:.4});
+document.querySelectorAll('section[id]').forEach(function(s){navObs.observe(s);});
 </script>
 </body>
 </html>
