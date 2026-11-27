@@ -521,8 +521,11 @@ html[data-theme="dark"] .xp-item.b .hl{background-image:linear-gradient(transpar
 .t-pink .tl-card:hover{background:var(--pink)}
 .tl-card:hover,.tl-card:hover .tl-when,.tl-card:hover .tl-what b,.tl-card:hover .tl-org{color:var(--on)}
 .tl-card:hover{border-color:var(--on);border-left-color:var(--on)}
-.tl .tl-card:hover .tag{background:var(--paper);color:var(--ink)}
-html[data-theme="dark"] .tl .tl-card:hover .tag{background:#FAF1E2;color:#141210;border-color:#141210}
+.tl .tl-card:hover .tag{color:#141210;border-color:#141210}
+.tl .t-orange .tl-card:hover .tag{background:color-mix(in srgb,var(--orange) 50%,#fff)}
+.tl .t-blue .tl-card:hover .tag{background:color-mix(in srgb,var(--blue) 50%,#fff)}
+.tl .t-yellow .tl-card:hover .tag{background:color-mix(in srgb,var(--yellow) 50%,#fff)}
+.tl .t-pink .tl-card:hover .tag{background:color-mix(in srgb,var(--pink) 50%,#fff)}
 .tl-item:hover .tl-node{transform:rotate(-14deg) scale(1.12)}
 @media (prefers-reduced-motion: reduce){.about-card p{transition:none}}
 
